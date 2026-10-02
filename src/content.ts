@@ -6,7 +6,7 @@
 export type Lang = 'es' | 'en'
 
 type Work = { sector: string; period: string; title: string; summary: string; points: string[]; stack: string[] }
-type Project = { name: string; kind: string; summary: string; proof: string; stack: string[]; repo?: string }
+type Project = { name: string; kind: string; summary: string; proof: string; stack: string[]; repo?: string; demo?: string }
 
 export type Content = {
   nav: { work: string; product: string; ai: string; stack: string; contact: string }
@@ -24,6 +24,7 @@ export type Content = {
   personal: { title: string; items: Project[] }
   stack: { title: string; note: string; groups: { name: string; items: string[] }[] }
   contact: { title: string; text: string; email: string; github: string }
+  live: string
   footer: string
 }
 
@@ -174,6 +175,7 @@ const es: Content = {
         proof: '10 pruebas locales y una contra datos.gov.co. Buscar entre 5.800 entidades pasó de 90 s a 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
+        demo: 'https://secop-api-i89q.onrender.com',
       },
       {
         name: 'secop-dashboard',
@@ -184,6 +186,7 @@ const es: Content = {
         proof: 'Componentes autónomos, signals y httpResource; 3 pruebas.',
         stack: ['Angular 22', 'Signals', 'Vitest'],
         repo: `${GITHUB}/secop-dashboard`,
+        demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
       {
         name: 'secop-mobile',
@@ -331,6 +334,7 @@ const es: Content = {
     email: 'Escribirme',
     github: 'GitHub',
   },
+  live: 'Ver en vivo',
   footer: 'Hecho con React y TypeScript. Sin rastreadores.',
 }
 
@@ -477,6 +481,7 @@ const en: Content = {
         proof: '10 local tests and one against datos.gov.co. Searching 5,800 entities went from 90 s to 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
+        demo: 'https://secop-api-i89q.onrender.com',
       },
       {
         name: 'secop-dashboard',
@@ -487,6 +492,7 @@ const en: Content = {
         proof: 'Standalone components, signals and httpResource; 3 tests.',
         stack: ['Angular 22', 'Signals', 'Vitest'],
         repo: `${GITHUB}/secop-dashboard`,
+        demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
       {
         name: 'secop-mobile',
@@ -634,6 +640,7 @@ const en: Content = {
     email: 'Email me',
     github: 'GitHub',
   },
+  live: 'See it live',
   footer: 'Built with React and TypeScript. No trackers.',
 }
 

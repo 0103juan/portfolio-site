@@ -28,13 +28,18 @@ function Chips({ items }: { items: string[] }) {
   )
 }
 
-function ProjectCard({ project }: { project: Content['ai']['items'][number] }) {
+function ProjectCard({ project, live }: { project: Content['ai']['items'][number]; live: string }) {
   return (
     <article className="card">
       <p className="eyebrow">{project.kind}</p>
       <h3>{project.repo ? <a href={project.repo}>{project.name}</a> : project.name}</h3>
       <p>{project.summary}</p>
       <p className="proof">{project.proof}</p>
+      {project.demo && (
+        <p>
+          <a href={project.demo}>{live} ↗</a>
+        </p>
+      )}
       <Chips items={project.stack} />
     </article>
   )
@@ -132,7 +137,7 @@ export default function App() {
           </figure>
           <div className="grid two">
             {t.product.parts.map((part) => (
-              <ProjectCard project={part} key={part.name} />
+              <ProjectCard project={part} live={t.live} key={part.name} />
             ))}
           </div>
         </section>
@@ -142,13 +147,13 @@ export default function App() {
           <p className="intro">{t.ai.intro}</p>
           <div className="grid two">
             {t.ai.items.map((item) => (
-              <ProjectCard project={item} key={item.name} />
+              <ProjectCard project={item} live={t.live} key={item.name} />
             ))}
           </div>
           <h2 className="minor">{t.personal.title}</h2>
           <div className="grid two">
             {t.personal.items.map((item) => (
-              <ProjectCard project={item} key={item.name} />
+              <ProjectCard project={item} live={t.live} key={item.name} />
             ))}
           </div>
         </section>
