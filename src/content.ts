@@ -239,7 +239,8 @@ const es: Content = {
         kind: 'RAG con evaluación',
         summary:
           'Reescritura de la pregunta, recuperación híbrida, reordenamiento y un juez que comprueba cada afirmación ' +
-          'contra las fuentes antes de responder.',
+          'contra las fuentes antes de responder. La evaluación corre en CI y frena las regresiones; cada pregunta ' +
+          'deja una traza con su costo por etapa.',
         proof: '88 % de respuestas correctas y 100 % de afirmaciones respaldadas en 33 preguntas; ninguno de los 4 fallos fue un dato inventado.',
         stack: ['Python', 'RRF', 'Cross-encoder', 'Claude'],
         repo: `${GITHUB}/enterprise-rag`,
@@ -548,7 +549,8 @@ const en: Content = {
         kind: 'RAG with evaluation',
         summary:
           'Query rewriting, hybrid retrieval, reranking, and a judge that checks every claim against the sources ' +
-          'before answering.',
+          'before answering. The evaluation runs in CI and stops regressions; every question leaves a trace with ' +
+          'its cost per stage.',
         proof: '88% correct answers and 100% supported claims on 33 questions; none of the 4 misses was a made-up fact.',
         stack: ['Python', 'RRF', 'Cross-encoder', 'Claude'],
         repo: `${GITHUB}/enterprise-rag`,
