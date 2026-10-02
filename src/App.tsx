@@ -12,7 +12,7 @@ import { TextRoll } from '@/components/ui/skiper-ui/skiper58'
 import { ScrollProgress } from '@/components/ui/skiper-ui/skiper89'
 import { cn } from '@/lib/utils'
 
-import { content, EMAIL, GITHUB, type Content, type Lang } from './content'
+import { content, EMAIL, GITHUB, LINKEDIN, type Content, type Lang } from './content'
 
 type Project = Content['ai']['items'][number]
 
@@ -207,7 +207,10 @@ export default function App() {
             stroke="var(--color-volt)"
             className="pointer-events-none absolute top-6 -right-[30%] z-0 w-[90vw] lg:right-[9%] lg:w-[44vw] lg:max-w-[760px]"
           />
-          <p className="label text-ash relative z-10">{t.role}</p>
+          <p className="label text-ash relative z-10">
+            {t.role}
+            <span className="mt-1.5 block xl:mt-0 xl:inline xl:before:mx-3 xl:before:content-['/']">{t.where}</span>
+          </p>
           <h1 className="display relative z-10 mt-4 text-[clamp(4.2rem,min(22vw,24svh),17rem)]">
             Juan
             <br />
@@ -218,12 +221,15 @@ export default function App() {
 
           <div className="relative z-10 mt-10 grid gap-8 lg:mt-auto lg:grid-cols-12 lg:items-end lg:pt-10">
             <p className="text-xl leading-snug lg:col-span-6 lg:text-2xl">{t.pitch}</p>
-            <div className="label flex flex-wrap gap-3 lg:col-span-3 lg:col-start-8 lg:flex-col lg:items-start">
+            <div className="label flex flex-wrap gap-3 lg:col-span-5 lg:col-start-8">
               <a href={`mailto:${EMAIL}`} className="bg-volt text-background px-4 py-3 font-bold" aria-label={t.contact.email}>
                 <TextRoll>{`${t.contact.email} →`}</TextRoll>
               </a>
               <a href={GITHUB} className="border px-4 py-3" aria-label="GitHub">
                 <TextRoll>GitHub ↗</TextRoll>
+              </a>
+              <a href={LINKEDIN} className="border px-4 py-3" aria-label="LinkedIn">
+                <TextRoll>LinkedIn ↗</TextRoll>
               </a>
             </div>
           </div>
@@ -392,6 +398,10 @@ export default function App() {
             <a href={GITHUB} className="underline decoration-2 underline-offset-4">
               github.com/0103juan ↗
             </a>
+            <a href={LINKEDIN} className="underline decoration-2 underline-offset-4">
+              LinkedIn ↗
+            </a>
+            <span className="text-ash">{t.where}</span>
           </div>
         </section>
       </main>

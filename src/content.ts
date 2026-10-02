@@ -24,6 +24,7 @@ export type Content = {
   personal: { title: string; items: Project[] }
   stack: { title: string; note: string; groups: { name: string; items: string[] }[] }
   contact: { title: string; text: string; email: string; github: string }
+  where: string // city and languages, shown in the hero and next to the contact links
   live: string
   code: string
   status: string
@@ -33,6 +34,7 @@ export type Content = {
 
 export const GITHUB = 'https://github.com/0103juan'
 export const EMAIL = '0103juan@gmail.com'
+export const LINKEDIN = 'https://www.linkedin.com/in/juan-pablo-cuervo-dorado-779089256'
 
 const es: Content = {
   nav: { work: 'Experiencia', product: 'Producto', ai: 'IA', stack: 'Stack', contact: 'Contacto' },
@@ -175,7 +177,7 @@ const es: Content = {
         summary:
           'API HTTP sin dependencias en producción. Ninguna entrada del cliente llega a la consulta sin validar, los ' +
           'documentos de identidad de los contratistas no salen nunca, y una caché evita repetir consultas lentas.',
-        proof: '10 pruebas locales y una contra datos.gov.co. Buscar entre 5.800 entidades pasó de 90 s a 3 ms.',
+        proof: '11 pruebas locales y una contra datos.gov.co. Buscar entre 5.800 entidades pasó de 90 s a 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
         demo: 'https://secop-api-i89q.onrender.com',
@@ -185,9 +187,10 @@ const es: Content = {
         kind: 'Angular 22',
         summary:
           'Panel web: selector de años, indicadores, mayores contratistas, modalidades, meses y la tabla de contratos ' +
-          'con enlace al expediente. Avisa cuando un solo contrato mal digitado explica el total del año.',
-        proof: 'Componentes autónomos, signals y httpResource; 3 pruebas.',
-        stack: ['Angular 22', 'Signals', 'Vitest'],
+          'con enlace al expediente, filtrable por modalidad. Avisa cuando un solo contrato mal digitado explica el ' +
+          'total del año.',
+        proof: '4 pruebas unitarias y 5 de extremo a extremo: un navegador real contra la API real, en cada despliegue.',
+        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright'],
         repo: `${GITHUB}/secop-dashboard`,
         demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
@@ -251,7 +254,7 @@ const es: Content = {
         summary:
           'Conecta un LLM con la contratación pública colombiana. El modelo no escribe consultas: llena una consulta ' +
           'tipada, y las columnas con datos personales son inalcanzables.',
-        proof: '17 pruebas, una contra la API real de datos.gov.co.',
+        proof: '17 pruebas, una contra la API real, y una sesión real con el modelo documentada con sus dos tropiezos.',
         stack: ['Python', 'MCP', 'Socrata', 'Pydantic'],
         repo: `${GITHUB}/secop-mcp`,
       },
@@ -271,7 +274,7 @@ const es: Content = {
         summary:
           'Un orquestador delega en agentes especialistas, se detiene a pedir aprobación humana en las decisiones que ' +
           'importan y solo puede actuar dentro de un contenedor sin red.',
-        proof: '18 pruebas, incluida una que verifica el aislamiento con Docker real.',
+        proof: '18 pruebas, una con Docker real. En una sesión real, el agente revisor encontró tres defectos que las 35 pruebas del programador no cubrían.',
         stack: ['Python', 'Docker', 'Claude'],
         repo: `${GITHUB}/sandboxed-agent`,
       },
@@ -302,10 +305,10 @@ const es: Content = {
         name: 'CrediYa',
         kind: 'Microservicios reactivos',
         summary:
-          'Autenticación y solicitudes de crédito como dos microservicios reactivos con arquitectura limpia, ' +
-          'contrato OpenAPI y pruebas unitarias.',
-        proof: 'Código público.',
-        stack: ['Java', 'Spring WebFlux', 'R2DBC', 'JWT', 'Docker'],
+          'Autenticación y solicitudes de crédito como dos microservicios reactivos con arquitectura limpia, roles ' +
+          'con JWT, contrato OpenAPI y un cliente HTTP no bloqueante entre ambos.',
+        proof: '106 pruebas entre los dos servicios, con reglas de arquitectura y pruebas de mutación en CI. Flujo completo verificado a mano contra PostgreSQL.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'JWT', 'ArchUnit', 'PIT'],
         repo: `${GITHUB}/crediya-microservice-auth`,
       },
     ],
@@ -334,10 +337,11 @@ const es: Content = {
   },
   contact: {
     title: 'Hablemos',
-    text: 'Busco un rol de AI engineer o product engineer. Escríbeme y te cuento el detalle de cualquiera de estos proyectos.',
+    text: 'Busco un rol de AI engineer, o de backend o full stack con IA aplicada. Escríbeme y te cuento el detalle de cualquiera de estos proyectos.',
     email: 'Escribirme',
     github: 'GitHub',
   },
+  where: 'Popayán, Cauca, Colombia · Inglés B2',
   live: 'Ver en vivo',
   code: 'Código',
   status: 'Disponible para un nuevo rol',
@@ -485,7 +489,7 @@ const en: Content = {
         summary:
           'An HTTP API with no production dependencies. No client input reaches a query unvalidated, suppliers\' ' +
           'identity numbers never leave it, and a cache avoids repeating slow queries.',
-        proof: '10 local tests and one against datos.gov.co. Searching 5,800 entities went from 90 s to 3 ms.',
+        proof: '11 local tests and one against datos.gov.co. Searching 5,800 entities went from 90 s to 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
         demo: 'https://secop-api-i89q.onrender.com',
@@ -495,9 +499,9 @@ const en: Content = {
         kind: 'Angular 22',
         summary:
           'Web dashboard: year selector, indicators, top suppliers, modalities, months and the contract table with a ' +
-          'link to each file. It warns when a single mistyped contract explains the year\'s total.',
-        proof: 'Standalone components, signals and httpResource; 3 tests.',
-        stack: ['Angular 22', 'Signals', 'Vitest'],
+          'link to each file, filterable by modality. It warns when a single mistyped contract explains the year\'s total.',
+        proof: '4 unit tests and 5 end-to-end tests: a real browser against the real API, on every deployment.',
+        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright'],
         repo: `${GITHUB}/secop-dashboard`,
         demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
@@ -561,7 +565,7 @@ const en: Content = {
         summary:
           'Connects an LLM to Colombian public procurement. The model writes no queries: it fills in a typed query, ' +
           'and the columns with personal data cannot be reached.',
-        proof: '17 tests, one against the real datos.gov.co API.',
+        proof: '17 tests, one against the real API, and one real session with the model written up with its two stumbles.',
         stack: ['Python', 'MCP', 'Socrata', 'Pydantic'],
         repo: `${GITHUB}/secop-mcp`,
       },
@@ -581,7 +585,7 @@ const en: Content = {
         summary:
           'An orchestrator delegates to specialist agents, stops for human approval at the decisions that matter, ' +
           'and can only act inside a container with no network.',
-        proof: '18 tests, including one that verifies the isolation with real Docker.',
+        proof: "18 tests, one with real Docker. In a real session the reviewer agent found three defects that the coder's 35 tests did not cover.",
         stack: ['Python', 'Docker', 'Claude'],
         repo: `${GITHUB}/sandboxed-agent`,
       },
@@ -612,10 +616,10 @@ const en: Content = {
         name: 'CrediYa',
         kind: 'Reactive microservices',
         summary:
-          'Authentication and loan applications as two reactive microservices with clean architecture, an OpenAPI ' +
-          'contract and unit tests.',
-        proof: 'Public code.',
-        stack: ['Java', 'Spring WebFlux', 'R2DBC', 'JWT', 'Docker'],
+          'Authentication and loan applications as two reactive microservices with clean architecture, JWT roles, ' +
+          'an OpenAPI contract and a non-blocking HTTP client between them.',
+        proof: '106 tests across the two services, with architecture rules and mutation testing in CI. The whole flow checked by hand against PostgreSQL.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'JWT', 'ArchUnit', 'PIT'],
         repo: `${GITHUB}/crediya-microservice-auth`,
       },
     ],
@@ -644,10 +648,11 @@ const en: Content = {
   },
   contact: {
     title: "Let's talk",
-    text: 'I am looking for an AI engineer or product engineer role. Write to me and I will walk you through any of these projects.',
+    text: 'I am looking for an AI engineer role, or a backend or full-stack role with applied AI. Write to me and I will walk you through any of these projects.',
     email: 'Email me',
     github: 'GitHub',
   },
+  where: 'Popayán, Cauca, Colombia · English B2',
   live: 'See it live',
   code: 'Code',
   status: 'Available for a new role',
