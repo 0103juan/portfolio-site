@@ -25,6 +25,9 @@ export type Content = {
   stack: { title: string; note: string; groups: { name: string; items: string[] }[] }
   contact: { title: string; text: string; email: string; github: string }
   live: string
+  code: string
+  status: string
+  credit: string
   footer: string
 }
 
@@ -201,9 +204,9 @@ const es: Content = {
       {
         name: 'portfolio-site',
         kind: 'React',
-        summary: 'Este sitio: React y TypeScript, contenido tipado en dos idiomas y cero dependencias de interfaz.',
+        summary: 'Este sitio: React, TypeScript y Tailwind, con componentes animados de Skiper UI y contenido tipado en dos idiomas.',
         proof: 'El compilador verifica que el español y el inglés tengan la misma estructura.',
-        stack: ['React 19', 'TypeScript', 'Vite'],
+        stack: ['React 19', 'TypeScript', 'Tailwind', 'Skiper UI', 'Vite'],
         repo: `${GITHUB}/portfolio-site`,
       },
     ],
@@ -335,6 +338,9 @@ const es: Content = {
     github: 'GitHub',
   },
   live: 'Ver en vivo',
+  code: 'Código',
+  status: 'Disponible para un nuevo rol',
+  credit: 'Animaciones adaptadas de Skiper UI.',
   footer: 'Hecho con React y TypeScript. Sin rastreadores.',
 }
 
@@ -507,9 +513,9 @@ const en: Content = {
       {
         name: 'portfolio-site',
         kind: 'React',
-        summary: 'This site: React and TypeScript, typed content in two languages and no UI dependencies.',
+        summary: 'This site: React, TypeScript and Tailwind, with animated components from Skiper UI and typed content in two languages.',
         proof: 'The compiler checks that the Spanish and English versions have the same structure.',
-        stack: ['React 19', 'TypeScript', 'Vite'],
+        stack: ['React 19', 'TypeScript', 'Tailwind', 'Skiper UI', 'Vite'],
         repo: `${GITHUB}/portfolio-site`,
       },
     ],
@@ -641,6 +647,9 @@ const en: Content = {
     github: 'GitHub',
   },
   live: 'See it live',
+  code: 'Code',
+  status: 'Available for a new role',
+  credit: 'Animations adapted from Skiper UI.',
   footer: 'Built with React and TypeScript. No trackers.',
 }
 
