@@ -46,3 +46,7 @@ npm run lint
 ## Publish it
 
 The build uses relative URLs, so it works under any path. `.github/workflows/deploy.yml` publishes `dist/` to GitHub Pages on every push to `main`.
+
+## License
+
+[MIT](LICENSE) for the code. Not covered: my photo (`src/Image.jpg`, `src/assets/portrait.jpg`), the text about me in `src/content.ts`, and the components in `src/components/ui/skiper-ui/`, which stay under Skiper UI's own licence.
