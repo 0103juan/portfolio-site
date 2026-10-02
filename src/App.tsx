@@ -234,7 +234,7 @@ export default function App() {
               width={880}
               height={1100}
               alt="Juan Pablo Cuervo"
-              className="border grayscale contrast-110 transition duration-500 hover:grayscale-0"
+              className="border"
             />
             <figcaption className="label mt-2 flex items-center gap-2 text-[0.62rem]">
               <span className="bg-volt size-2 animate-pulse rounded-full" />
