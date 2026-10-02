@@ -50,22 +50,23 @@ export const EMAIL = '0103juan@gmail.com'
 export const LINKEDIN = 'https://www.linkedin.com/in/juan-pablo-cuervo-dorado-779089256'
 
 const es: Content = {
-  nav: { work: 'Experiencia', product: 'Producto', ai: 'IA', stack: 'Stack', contact: 'Contacto' },
-  role: 'Ingeniero de software · backend e IA aplicada',
+  nav: { work: 'Experiencia', product: 'Producto', ai: 'IA aplicada', stack: 'Stack', contact: 'Contacto' },
+  role: 'AI Engineer · Backend',
   pitch:
-    'Desde 2022 construyo backends que convierten documentos en datos verificables para entidades financieras y del ' +
-    'sector público en Colombia: extracción con modelos de lenguaje, validación con reglas de negocio e integración ' +
-    'con los sistemas que ya existen.',
+    'Llevo modelos de lenguaje a sistemas que se pueden verificar. Desde 2022 construyo backends que convierten ' +
+    'documentos en datos para entidades financieras y del sector público en Colombia: extracción con LLM, validación ' +
+    'con reglas de negocio e integración con los sistemas que ya existen.',
   facts: [
-    { value: '4+ años', label: 'de backend en producción para finanzas y sector público' },
     { value: '5', label: 'proyectos de IA propios, con pruebas y resultados medidos' },
+    { value: '4+ años', label: 'de backend en producción para finanzas y sector público' },
     { value: '1 producto', label: 'llevado a cuatro stacks: Node.js, Angular, Flutter y React' },
   ],
   work: {
     title: 'Trabajo con clientes',
     intro:
       'Estos sistemas son de clientes, así que aquí no hay nombres, capturas ni cifras internas: solo el problema, ' +
-      'lo que construí y con qué. Los detalles que la confidencialidad permite los cuento en una entrevista.',
+      'lo que construí y con qué. Los que usan modelos de lenguaje van primero y llevan la tecnología marcada. Los ' +
+      'detalles que la confidencialidad permite los cuento en una entrevista.',
     items: [
       {
         sector: 'Sector financiero',
@@ -96,20 +97,6 @@ const es: Content = {
         stack: ['Java', 'Spring Boot', 'ANTLR4', 'Python', 'LLM', 'Cloud Run', 'Flyway', 'GitHub Actions'],
       },
       {
-        sector: 'Gobierno departamental',
-        period: '2024 – 2026',
-        title: 'Recaudo y conciliación del impuesto vehicular',
-        summary:
-          'Tres sistemas para la misma entidad: validación de pagos masivos, verificación de actos ' +
-          'administrativos y seguimiento de las cuentas bancarias de recaudo.',
-        points: [
-          'Carga masiva de pagos desde Excel, cruce contra notas crédito y reportes de dispersión entre departamento y municipios.',
-          'Extracción de actos administrativos en PDF y cruce contra la información bancaria, con gestión de inconsistencias.',
-          'Ingesta por SFTP de extractos de varios bancos, indicadores para el tablero y reportes exportables.',
-        ],
-        stack: ['Java 17', 'Spring Boot 3', 'Spring Security', 'Python', 'FastAPI', 'MySQL', 'Alembic', 'Apache POI'],
-      },
-      {
         sector: 'Registro empresarial',
         period: '2025 – 2026',
         title: 'Lectura de actas societarias con LLM',
@@ -122,6 +109,20 @@ const es: Content = {
           'Inicio de sesión con código de un solo uso y despliegue continuo con GitHub Actions.',
         ],
         stack: ['Java', 'Spring Boot', 'Python', 'LLM', 'Pub/Sub', 'WebSocket', 'Docker', 'GitHub Actions'],
+      },
+      {
+        sector: 'Gobierno departamental',
+        period: '2024 – 2026',
+        title: 'Recaudo y conciliación del impuesto vehicular',
+        summary:
+          'Tres sistemas para la misma entidad: validación de pagos masivos, verificación de actos ' +
+          'administrativos y seguimiento de las cuentas bancarias de recaudo.',
+        points: [
+          'Carga masiva de pagos desde Excel, cruce contra notas crédito y reportes de dispersión entre departamento y municipios.',
+          'Extracción de actos administrativos en PDF y cruce contra la información bancaria, con gestión de inconsistencias.',
+          'Ingesta por SFTP de extractos de varios bancos, indicadores para el tablero y reportes exportables.',
+        ],
+        stack: ['Java 17', 'Spring Boot 3', 'Spring Security', 'Python', 'FastAPI', 'MySQL', 'Alembic', 'Apache POI'],
       },
       {
         sector: 'Pagos',
@@ -190,7 +191,7 @@ const es: Content = {
         summary:
           'API HTTP sin dependencias en producción. Ninguna entrada del cliente llega a la consulta sin validar, los ' +
           'documentos de identidad de los contratistas no salen nunca, y una caché evita repetir consultas lentas.',
-        proof: '11 pruebas locales y una contra datos.gov.co. Buscar entre 5.800 entidades pasó de 90 s a 3 ms.',
+        proof: '12 pruebas locales y una contra datos.gov.co. Buscar entre 5.800 entidades pasó de 90 s a 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
         demo: 'https://secop-api-i89q.onrender.com',
@@ -199,11 +200,11 @@ const es: Content = {
         name: 'secop-dashboard',
         kind: 'Angular 22',
         summary:
-          'Panel web: selector de años, indicadores, mayores contratistas, modalidades, meses y la tabla de contratos ' +
-          'con enlace al expediente, filtrable por modalidad. Avisa cuando un solo contrato mal digitado explica el ' +
-          'total del año.',
-        proof: '4 pruebas unitarias y 5 de extremo a extremo: un navegador real contra la API real, en cada despliegue.',
-        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright'],
+          'Panel web que explica el año de una entidad: cuánto cambió frente al anterior, cuánto concentran los ' +
+          'mayores contratistas, qué parte se adjudicó por contratación directa y cuándo se firmó. Avisa cuando un ' +
+          'solo contrato mal digitado explica el total, y entonces no lo compara con otro año.',
+        proof: '12 pruebas unitarias y 6 de extremo a extremo: un navegador real contra la API real, en cada despliegue. Cada frase que el panel puede decir está probada.',
+        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright', 'Skiper UI portado a Angular'],
         repo: `${GITHUB}/secop-dashboard`,
         demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
@@ -227,15 +228,15 @@ const es: Content = {
       },
     ],
     captions: {
-      dashboard: 'El panel en Angular con los datos reales de 2024 de una alcaldía.',
+      dashboard: 'El panel en Angular con los datos reales de 2024 de una alcaldía: cada cifra viene con su lectura.',
       warning:
         'Un hallazgo de los datos: en 2019 un contrato digitado con un valor imposible explica el 100 % del total. ' +
-        'El panel lo dice en vez de mostrar la cifra como un hecho.',
+        'El panel lo dice, muestra el total sin ese contrato y se niega a comparar ese año con otro.',
       mobile: 'La app en Flutter.',
     },
   },
   ai: {
-    title: 'Proyectos de IA',
+    title: 'IA aplicada',
     intro:
       'Cinco proyectos en Python contra la API de Claude, sin frameworks de agentes, para que el mecanismo se vea en ' +
       'el código. Cada README publica solo números que salieron de una ejecución real, y una sección de límites.',
@@ -267,7 +268,7 @@ const es: Content = {
         summary:
           'Conecta un LLM con la contratación pública colombiana. El modelo no escribe consultas: llena una consulta ' +
           'tipada, y las columnas con datos personales son inalcanzables.',
-        proof: '17 pruebas, una contra la API real, y una sesión real con el modelo documentada con sus dos tropiezos.',
+        proof: '24 pruebas, una contra la API real. Una sesión real mostró dos fallos y ambos se corrigieron en la herramienta, no en el prompt: un directorio de entidades y montos escritos por código.',
         stack: ['Python', 'MCP', 'Socrata', 'Pydantic'],
         repo: `${GITHUB}/secop-mcp`,
       },
@@ -402,14 +403,14 @@ const es: Content = {
       'los proyectos de arriba muestran hasta dónde.',
     groups: [
       {
-        name: 'Todos los días',
-        items: ['Java 17–21', 'Spring Boot 3', 'Python', 'FastAPI', 'PostgreSQL', 'MySQL', 'Flyway', 'Docker', 'GitHub Actions',
-                'Cloud Run', 'Pub/Sub', 'Cloud Storage'],
-      },
-      {
         name: 'IA aplicada',
         items: ['Extracción multimodal', 'RAG híbrido', 'Reranking', 'Evaluación con conjuntos dorados', 'Servidores MCP',
                 'Agentes con aprobación humana', 'API de Claude', 'API de Gemini'],
+      },
+      {
+        name: 'Todos los días',
+        items: ['Java 17–21', 'Spring Boot 3', 'Python', 'FastAPI', 'PostgreSQL', 'MySQL', 'Flyway', 'Docker', 'GitHub Actions',
+                'Cloud Run', 'Pub/Sub', 'Cloud Storage'],
       },
       {
         name: 'También construyo con',
@@ -432,22 +433,23 @@ const es: Content = {
 }
 
 const en: Content = {
-  nav: { work: 'Experience', product: 'Product', ai: 'AI', stack: 'Stack', contact: 'Contact' },
-  role: 'Software engineer · backend and applied AI',
+  nav: { work: 'Experience', product: 'Product', ai: 'Applied AI', stack: 'Stack', contact: 'Contact' },
+  role: 'AI Engineer · Backend',
   pitch:
-    'Since 2022 I have been building backends that turn documents into data you can verify, for financial and ' +
-    'public-sector organisations in Colombia: extraction with language models, validation with business rules, and ' +
-    'integration with the systems already in place.',
+    'I put language models into systems you can verify. Since 2022 I have been building backends that turn ' +
+    'documents into data for financial and public-sector organisations in Colombia: extraction with LLMs, validation ' +
+    'with business rules, and integration with the systems already in place.',
   facts: [
-    { value: '4+ years', label: 'of production backend for finance and the public sector' },
     { value: '5', label: 'AI projects of my own, with tests and measured results' },
+    { value: '4+ years', label: 'of production backend for finance and the public sector' },
     { value: '1 product', label: 'taken to four stacks: Node.js, Angular, Flutter and React' },
   ],
   work: {
     title: 'Client work',
     intro:
       'These systems belong to clients, so there are no names, screenshots or internal figures here: only the ' +
-      'problem, what I built and with what. I can go into what confidentiality allows in an interview.',
+      'problem, what I built and with what. The ones that use language models come first, with that technology ' +
+      'marked. I can go into what confidentiality allows in an interview.',
     items: [
       {
         sector: 'Financial services',
@@ -478,20 +480,6 @@ const en: Content = {
         stack: ['Java', 'Spring Boot', 'ANTLR4', 'Python', 'LLM', 'Cloud Run', 'Flyway', 'GitHub Actions'],
       },
       {
-        sector: 'Regional government',
-        period: '2024 – 2026',
-        title: 'Vehicle tax collection and reconciliation',
-        summary:
-          'Three systems for the same organisation: validation of bulk payments, verification of ' +
-          'administrative acts, and monitoring of the collection bank accounts.',
-        points: [
-          'Bulk payment uploads from Excel, matching against credit notes, and reports that split revenue between the region and its municipalities.',
-          'Extraction of administrative acts from PDF and matching against bank data, with inconsistency management.',
-          'SFTP ingestion of statements from several banks, indicators for the dashboard and exportable reports.',
-        ],
-        stack: ['Java 17', 'Spring Boot 3', 'Spring Security', 'Python', 'FastAPI', 'MySQL', 'Alembic', 'Apache POI'],
-      },
-      {
         sector: 'Business registry',
         period: '2025 – 2026',
         title: 'Reading corporate minutes with an LLM',
@@ -504,6 +492,20 @@ const en: Content = {
           'One-time-code login and continuous deployment with GitHub Actions.',
         ],
         stack: ['Java', 'Spring Boot', 'Python', 'LLM', 'Pub/Sub', 'WebSocket', 'Docker', 'GitHub Actions'],
+      },
+      {
+        sector: 'Regional government',
+        period: '2024 – 2026',
+        title: 'Vehicle tax collection and reconciliation',
+        summary:
+          'Three systems for the same organisation: validation of bulk payments, verification of ' +
+          'administrative acts, and monitoring of the collection bank accounts.',
+        points: [
+          'Bulk payment uploads from Excel, matching against credit notes, and reports that split revenue between the region and its municipalities.',
+          'Extraction of administrative acts from PDF and matching against bank data, with inconsistency management.',
+          'SFTP ingestion of statements from several banks, indicators for the dashboard and exportable reports.',
+        ],
+        stack: ['Java 17', 'Spring Boot 3', 'Spring Security', 'Python', 'FastAPI', 'MySQL', 'Alembic', 'Apache POI'],
       },
       {
         sector: 'Payments',
@@ -571,7 +573,7 @@ const en: Content = {
         summary:
           'An HTTP API with no production dependencies. No client input reaches a query unvalidated, suppliers\' ' +
           'identity numbers never leave it, and a cache avoids repeating slow queries.',
-        proof: '11 local tests and one against datos.gov.co. Searching 5,800 entities went from 90 s to 3 ms.',
+        proof: '12 local tests and one against datos.gov.co. Searching 5,800 entities went from 90 s to 3 ms.',
         stack: ['Node 24', 'TypeScript', 'node:test'],
         repo: `${GITHUB}/secop-api`,
         demo: 'https://secop-api-i89q.onrender.com',
@@ -580,10 +582,11 @@ const en: Content = {
         name: 'secop-dashboard',
         kind: 'Angular 22',
         summary:
-          'Web dashboard: year selector, indicators, top suppliers, modalities, months and the contract table with a ' +
-          'link to each file, filterable by modality. It warns when a single mistyped contract explains the year\'s total.',
-        proof: '4 unit tests and 5 end-to-end tests: a real browser against the real API, on every deployment.',
-        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright'],
+          'A web dashboard that explains an entity\'s year: how it changed against the previous one, how much the ' +
+          'largest suppliers hold, how much was awarded without competition and when it was signed. It warns when a ' +
+          'single mistyped contract explains the total, and then refuses to compare that year with another.',
+        proof: '12 unit tests and 6 end-to-end tests: a real browser against the real API, on every deployment. Every sentence the dashboard can say is tested.',
+        stack: ['Angular 22', 'Signals', 'Vitest', 'Playwright', 'Skiper UI ported to Angular'],
         repo: `${GITHUB}/secop-dashboard`,
         demo: 'https://0103juan.github.io/secop-dashboard/#/entidad/890905211?year=2024',
       },
@@ -607,15 +610,15 @@ const en: Content = {
       },
     ],
     captions: {
-      dashboard: "The Angular dashboard with a city government's real 2024 data.",
+      dashboard: "The Angular dashboard with a city government's real 2024 data: every figure comes with its reading.",
       warning:
         'A finding in the data: in 2019 one contract typed with an impossible value explains 100% of the total. ' +
-        'The dashboard says so instead of presenting the figure as a fact.',
+        'The dashboard says so, shows the total without that contract and refuses to compare that year with another.',
       mobile: 'The Flutter app.',
     },
   },
   ai: {
-    title: 'AI projects',
+    title: 'Applied AI',
     intro:
       'Five Python projects written directly against the Claude API, with no agent framework, so the mechanism is ' +
       'visible in the code. Each README publishes only numbers that came from a real run, and a section on limits.',
@@ -647,7 +650,7 @@ const en: Content = {
         summary:
           'Connects an LLM to Colombian public procurement. The model writes no queries: it fills in a typed query, ' +
           'and the columns with personal data cannot be reached.',
-        proof: '17 tests, one against the real API, and one real session with the model written up with its two stumbles.',
+        proof: '24 tests, one against the real API. One real session showed two failures and both were fixed in the tool, not in the prompt: an entity directory, and amounts written out by code.',
         stack: ['Python', 'MCP', 'Socrata', 'Pydantic'],
         repo: `${GITHUB}/secop-mcp`,
       },
@@ -782,14 +785,14 @@ const en: Content = {
       'the projects above show how far.',
     groups: [
       {
-        name: 'Every day',
-        items: ['Java 17–21', 'Spring Boot 3', 'Python', 'FastAPI', 'PostgreSQL', 'MySQL', 'Flyway', 'Docker', 'GitHub Actions',
-                'Cloud Run', 'Pub/Sub', 'Cloud Storage'],
-      },
-      {
         name: 'Applied AI',
         items: ['Multimodal extraction', 'Hybrid RAG', 'Reranking', 'Evaluation with golden sets', 'MCP servers',
                 'Agents with human approval', 'Claude API', 'Gemini API'],
+      },
+      {
+        name: 'Every day',
+        items: ['Java 17–21', 'Spring Boot 3', 'Python', 'FastAPI', 'PostgreSQL', 'MySQL', 'Flyway', 'Docker', 'GitHub Actions',
+                'Cloud Run', 'Pub/Sub', 'Cloud Storage'],
       },
       {
         name: 'I also build with',

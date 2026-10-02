@@ -46,11 +46,17 @@ function useMediaQuery(query: string): boolean {
 const shot = (name: string) => `${import.meta.env.BASE_URL}shots/${name}.png`
 const pad = (n: number) => String(n).padStart(2, '0')
 
-function Chips({ items, className }: { items: string[]; className?: string }) {
+const AI_TECH = /LLM|Gemini|Claude|RAG|MCP|Embeddings|Reranking/
+
+/** `mark` picks out the chips that name a model or an AI technique, so applied AI shows inside client work too. */
+function Chips({ items, className, mark = false }: { items: string[]; className?: string; mark?: boolean }) {
   return (
     <ul className={cn('flex flex-wrap gap-1.5', className)}>
       {items.map((item) => (
-        <li key={item} className="label border px-2 py-1 text-[0.65rem] tracking-wider">
+        <li
+          key={item}
+          className={cn('label border px-2 py-1 text-[0.65rem] tracking-wider', mark && AI_TECH.test(item) && 'border-volt text-volt')}
+        >
           {item}
         </li>
       ))}
@@ -119,7 +125,7 @@ function WorkDeck({ t, enabled }: { t: Content; enabled: boolean }) {
                   </li>
                 ))}
               </ul>
-              <Chips items={item.stack} className="text-ash mt-auto" />
+              <Chips items={item.stack} className="text-ash mt-auto" mark />
             </div>
           </article>
         </StickyCard_001>
@@ -166,9 +172,9 @@ export default function App() {
   }, [lang, t.role])
 
   const sections = [
+    ['ai', t.nav.ai],
     ['work', t.nav.work],
     ['product', t.nav.product],
-    ['ai', t.nav.ai],
     ['stack', t.nav.stack],
     ['contact', t.nav.contact],
   ] as const
@@ -270,50 +276,9 @@ export default function App() {
           ))}
         </dl>
 
-        {/* Client work */}
-        <section id="work" className="px-5 py-24 md:px-10 lg:py-32">
-          <SectionHead n={1} label={t.nav.work}>
-            <h2 className="display text-[clamp(2.8rem,8vw,7.5rem)]">{t.work.title}</h2>
-            <p className="text-ash mt-6 max-w-[62ch] text-lg">{t.work.intro}</p>
-          </SectionHead>
-          <WorkDeck t={t} enabled={wide && !reducedMotion} />
-        </section>
-
-        {/* The product */}
-        <section id="product" className="overflow-x-clip border-t px-5 py-24 md:px-10 lg:py-32">
-          <SectionHead n={2} label={t.nav.product}>
-            <ScrollAssemble text={t.product.title} className="display text-volt text-[clamp(2.8rem,8vw,7.5rem)]" />
-            <p className="text-ash mt-6 max-w-[62ch] text-lg">{t.product.intro}</p>
-          </SectionHead>
-
-          <div className="grid items-end gap-6 lg:grid-cols-12">
-            <figure className="lg:col-span-9">
-              <img src={shot('dashboard')} width={1920} height={1350} alt={t.product.captions.dashboard} className="w-full border" />
-              <figcaption className="label text-ash mt-3 normal-case tracking-normal">{t.product.captions.dashboard}</figcaption>
-            </figure>
-            <figure className="max-w-56 lg:col-span-3 lg:max-w-none">
-              <img src={shot('mobile')} width={780} height={1688} alt={t.product.captions.mobile} loading="lazy" className="w-full border" />
-              <figcaption className="label text-ash mt-3 normal-case tracking-normal">{t.product.captions.mobile}</figcaption>
-            </figure>
-          </div>
-
-          <figure className="mt-10 grid gap-6 border-t pt-10 lg:grid-cols-12">
-            <figcaption className="text-xl leading-snug lg:col-span-4 lg:text-2xl">{t.product.captions.warning}</figcaption>
-            <img src={shot('warning')} width={1920} height={960} alt="" loading="lazy" className="w-full border lg:col-span-8" />
-          </figure>
-
-          <div className="mt-10 grid gap-px border bg-[var(--color-border)] md:grid-cols-2">
-            {t.product.parts.map((part) => (
-              <article key={part.name} className="bg-background hover:bg-coal transition-colors">
-                <ProjectBody project={part} t={t} className="[&_a]:text-volt" />
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* AI projects */}
-        <section id="ai" className="border-t px-5 py-24 md:px-10 lg:py-32">
-          <SectionHead n={3} label={t.nav.ai}>
+        {/* AI projects come first: it is the work this site is meant to show. */}
+        <section id="ai" className="px-5 py-24 md:px-10 lg:py-32">
+          <SectionHead n={1} label={t.nav.ai}>
             <h2 className="display text-[clamp(2.8rem,8vw,7.5rem)]">{t.ai.title}</h2>
             <p className="text-ash mt-6 max-w-[62ch] text-lg">{t.ai.intro}</p>
           </SectionHead>
@@ -341,6 +306,48 @@ export default function App() {
           )}
 
           <Demo demo={t.demo} />
+        </section>
+
+
+        {/* Client work */}
+        <section id="work" className="border-t px-5 py-24 md:px-10 lg:py-32">
+          <SectionHead n={2} label={t.nav.work}>
+            <h2 className="display text-[clamp(2.8rem,8vw,7.5rem)]">{t.work.title}</h2>
+            <p className="text-ash mt-6 max-w-[62ch] text-lg">{t.work.intro}</p>
+          </SectionHead>
+          <WorkDeck t={t} enabled={wide && !reducedMotion} />
+        </section>
+
+        {/* The product */}
+        <section id="product" className="overflow-x-clip border-t px-5 py-24 md:px-10 lg:py-32">
+          <SectionHead n={3} label={t.nav.product}>
+            <ScrollAssemble text={t.product.title} className="display text-volt text-[clamp(2.8rem,8vw,7.5rem)]" />
+            <p className="text-ash mt-6 max-w-[62ch] text-lg">{t.product.intro}</p>
+          </SectionHead>
+
+          <div className="grid items-end gap-6 lg:grid-cols-12">
+            <figure className="lg:col-span-9">
+              <img src={shot('dashboard')} width={1920} height={1350} alt={t.product.captions.dashboard} className="w-full border" />
+              <figcaption className="label text-ash mt-3 normal-case tracking-normal">{t.product.captions.dashboard}</figcaption>
+            </figure>
+            <figure className="max-w-56 lg:col-span-3 lg:max-w-none">
+              <img src={shot('mobile')} width={780} height={1688} alt={t.product.captions.mobile} loading="lazy" className="w-full border" />
+              <figcaption className="label text-ash mt-3 normal-case tracking-normal">{t.product.captions.mobile}</figcaption>
+            </figure>
+          </div>
+
+          <figure className="mt-10 grid gap-6 border-t pt-10 lg:grid-cols-12">
+            <figcaption className="text-xl leading-snug lg:col-span-4 lg:text-2xl">{t.product.captions.warning}</figcaption>
+            <img src={shot('warning')} width={1920} height={960} alt="" loading="lazy" className="w-full border lg:col-span-8" />
+          </figure>
+
+          <div className="mt-10 grid gap-px border bg-[var(--color-border)] md:grid-cols-2">
+            {t.product.parts.map((part) => (
+              <article key={part.name} className="bg-background hover:bg-coal transition-colors">
+                <ProjectBody project={part} t={t} className="[&_a]:text-volt" />
+              </article>
+            ))}
+          </div>
 
           <h3 className="label text-ash mt-20 mb-4">{t.personal.title}</h3>
           <ul className="border-t">
