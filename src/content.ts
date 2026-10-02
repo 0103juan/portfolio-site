@@ -21,6 +21,19 @@ export type Content = {
     captions: { dashboard: string; warning: string; mobile: string }
   }
   ai: { title: string; intro: string; items: Project[] }
+  // The script of the recorded demo: one real secop-mcp session. Change it only from a real run's output.
+  demo: {
+    label: string
+    title: string
+    note: string
+    stats: string
+    replay: string
+    question: string
+    steps: { tool: string; query: string; result: string; status: 'ok' | 'empty' | 'error' }[]
+    answer: { intro: string; columns: string[]; rows: string[][]; warnings: string[] }
+    findings: { title: string; items: string[] }
+    more: { text: string; href: string }
+  }
   personal: { title: string; items: Project[] }
   stack: { title: string; note: string; groups: { name: string; items: string[] }[] }
   contact: { title: string; text: string; email: string; github: string }
@@ -233,7 +246,7 @@ const es: Content = {
         summary:
           'Preguntas sobre el Estatuto Tributario con cita del artículo en cada afirmación. Incluye la ingesta: ' +
           '1.301 artículos extraídos de la compilación oficial, con tres formatos de HTML distintos.',
-        proof: 'La evidencia entre los 5 primeros resultados pasó de 40 % (solo vectores) a 77 % (híbrida + reranker multilingüe).',
+        proof: 'La evidencia entre los 5 primeros resultados pasó de 40 % (solo vectores) a 77 % (híbrida + reranker multilingüe). De punta a punta, 29 de 33 respuestas correctas; en las 4 que falló dijo «no lo sé» en vez de inventar.',
         stack: ['Python', 'BM25', 'Embeddings', 'Reranking', 'Claude'],
         repo: `${GITHUB}/consultor-tributario`,
       },
@@ -280,6 +293,74 @@ const es: Content = {
       },
     ],
   },
+  demo: {
+    label: 'Demo grabada · secop-mcp',
+    title: 'Una pregunta real, paso a paso',
+    note:
+      'Sesión del 1 de octubre de 2026 con claude-sonnet-5-5. No es una llamada en vivo: las llamadas a ' +
+      'herramientas salen de la bitácora de auditoría del servidor y la respuesta es la del modelo, abreviada.',
+    stats: '5 llamadas a herramientas · unos 2 minutos',
+    replay: 'Repetir',
+    question: '¿Cuáles fueron los cinco mayores contratistas de la Alcaldía de Medellín en 2024?',
+    steps: [
+      { tool: 'describe_dataset', query: 'sin argumentos', result: 'Columnas consultables y las trampas de los datos', status: 'ok' },
+      {
+        tool: 'query_contracts',
+        query: 'nombre contiene «medell» · año 2024 · contar por entidad',
+        result: 'datos.gov.co no respondió en 60 s',
+        status: 'error',
+      },
+      {
+        tool: 'query_contracts',
+        query: 'nombre contiene «alcaldía de medell» · año 2024',
+        result: '0 filas: SECOP II no la llama «Alcaldía»',
+        status: 'empty',
+      },
+      {
+        tool: 'query_contracts',
+        query: 'nombre y ciudad contienen «medell» · año 2024',
+        result: '15 entidades, entre ellas el nombre oficial',
+        status: 'ok',
+      },
+      {
+        tool: 'query_contracts',
+        query:
+          'entidad = «DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN» · año 2024 · sin borradores ' +
+          'ni cancelados · suma, máximo y conteo por contratista',
+        result: '5 filas',
+        status: 'ok',
+      },
+    ],
+    answer: {
+      intro: 'Los cinco mayores contratistas de la Alcaldía de Medellín en 2024, por valor total contratado, fueron los siguientes.',
+      columns: ['Contratista', 'Valor total (COP)', 'Contratos', 'Contrato mayor (COP)'],
+      rows: [
+        ['Bancolombia', '491.372 mil millones', '1', '491.372 mil millones'],
+        ['ESE Metrosalud', '342.732 mil millones', '28', '45.000 mil millones'],
+        ['Institución Universitaria ITM', '283.679 mil millones', '63', '17.305 mil millones'],
+        ['Empresa de Desarrollo Urbano de Medellín', '222.542 mil millones', '10', '117.733 mil millones'],
+        ['Empresa para la Seguridad y Soluciones Urbanas, ESU', '162.993 mil millones', '9', '51.547 mil millones'],
+      ],
+      warnings: [
+        'Bancolombia: su total sale de un solo contrato de unos 491 billones de pesos. Es posible que sea un error de ' +
+          'digitación o un contrato atípico. Conviene verificarlo en la fuente antes de tomarlo como real.',
+        'Metrosalud, ITM y las demás entidades son en su mayoría contratos interadministrativos. Si busca ' +
+          'contratistas privados, el ranking sería distinto.',
+        'Los datos son solo de SECOP II, así que las cifras son un piso y no el total contratado.',
+      ],
+    },
+    findings: {
+      title: 'Lo que la grabación deja ver',
+      items: [
+        'Acertó en lo difícil: descubrió que SECOP II registra a la Alcaldía con otro nombre, notó que el Concejo y la ' +
+          'Personería comparten su NIT y filtró por el nombre exacto.',
+        'Se equivocó una vez al redactar: escribió «491 billones» donde su propia tabla dice 491 mil millones, mil ' +
+          'veces menos. El número que devolvió la herramienta era correcto; los montos debe formatearlos el código, no el modelo.',
+        'Encontrar la entidad costó un tiempo agotado y dos llamadas de más. La búsqueda por nombre es el camino lento de estos datos.',
+      ],
+    },
+    more: { text: 'La sesión completa, en el README', href: `${GITHUB}/secop-mcp#the-same-question-asked-through-the-model` },
+  },
   personal: {
     title: 'Otros proyectos propios',
     items: [
@@ -303,13 +384,14 @@ const es: Content = {
       },
       {
         name: 'CrediYa',
-        kind: 'Microservicios reactivos',
+        kind: 'Microservicios · SQS · Lambda',
         summary:
-          'Autenticación y solicitudes de crédito como dos microservicios reactivos con arquitectura limpia, roles ' +
-          'con JWT, contrato OpenAPI y un cliente HTTP no bloqueante entre ambos.',
-        proof: '106 pruebas entre los dos servicios, con reglas de arquitectura y pruebas de mutación en CI. Flujo completo verificado a mano contra PostgreSQL.',
-        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'JWT', 'ArchUnit', 'PIT'],
-        repo: `${GITHUB}/crediya-microservice-auth`,
+          'Dos microservicios reactivos con arquitectura hexagonal: autenticación con JWT y solicitudes de crédito. ' +
+          'Cuando un asesor aprueba o rechaza una solicitud, el servicio publica la decisión en una cola SQS y una ' +
+          'función Lambda le avisa al cliente por correo.',
+        proof: '119 pruebas en los dos servicios, con reglas de arquitectura y pruebas de mutación. CI levanta la cola y la Lambda en LocalStack y comprueba que un mensaje termina en correo. No está desplegado en AWS.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'SQS', 'Lambda', 'LocalStack', 'ArchUnit', 'PIT'],
+        repo: `${GITHUB}/crediya-microservice-loan`,
       },
     ],
   },
@@ -337,7 +419,7 @@ const es: Content = {
   },
   contact: {
     title: 'Hablemos',
-    text: 'Busco un rol de AI engineer, o de backend o full stack con IA aplicada. Escríbeme y te cuento el detalle de cualquiera de estos proyectos.',
+    text: 'Abierto a oportunidades como AI Engineer, Backend Engineer o Full Stack Engineer. Si mi perfil se ajusta a lo que su equipo busca, con gusto agendamos una conversación.',
     email: 'Escribirme',
     github: 'GitHub',
   },
@@ -544,7 +626,7 @@ const en: Content = {
         summary:
           "Questions about Colombia's tax code, with the article cited in every statement. It includes the " +
           'ingestion: 1,301 articles parsed from the official compilation, across three different HTML layouts.',
-        proof: 'Evidence in the top 5 results went from 40% (vectors only) to 77% (hybrid + multilingual reranker).',
+        proof: 'Evidence in the top 5 results went from 40% (vectors only) to 77% (hybrid + multilingual reranker). End to end, 29 of 33 answers correct; on the 4 it missed it said "I don\'t know" instead of making something up.',
         stack: ['Python', 'BM25', 'Embeddings', 'Reranking', 'Claude'],
         repo: `${GITHUB}/consultor-tributario`,
       },
@@ -591,6 +673,74 @@ const en: Content = {
       },
     ],
   },
+  demo: {
+    label: 'Recorded demo · secop-mcp',
+    title: 'One real question, step by step',
+    note:
+      'A session from 1 October 2026 with claude-sonnet-5-5. It is not a live call: the tool calls come from the ' +
+      "server's audit log and the answer is the model's, shortened. The session ran in Spanish; this is a translation.",
+    stats: '5 tool calls · about 2 minutes',
+    replay: 'Replay',
+    question: 'Who were the five largest suppliers of the Medellín city government in 2024?',
+    steps: [
+      { tool: 'describe_dataset', query: 'no arguments', result: 'The columns it may query and the traps in the data', status: 'ok' },
+      {
+        tool: 'query_contracts',
+        query: 'name contains "medell" · year 2024 · count by entity',
+        result: 'datos.gov.co did not answer within 60 s',
+        status: 'error',
+      },
+      {
+        tool: 'query_contracts',
+        query: 'name contains "alcaldía de medell" · year 2024',
+        result: '0 rows: SECOP II does not call it "Alcaldía"',
+        status: 'empty',
+      },
+      {
+        tool: 'query_contracts',
+        query: 'name and city contain "medell" · year 2024',
+        result: '15 entities, the official name among them',
+        status: 'ok',
+      },
+      {
+        tool: 'query_contracts',
+        query:
+          'entity = "DISTRITO ESPECIAL DE CIENCIA TECNOLOGIA E INNOVACION DE MEDELLIN" · year 2024 · no drafts or ' +
+          'cancellations · sum, max and count by supplier',
+        result: '5 rows',
+        status: 'ok',
+      },
+    ],
+    answer: {
+      intro: 'The five largest suppliers of the Medellín city government in 2024, by total contracted value, were these.',
+      columns: ['Supplier', 'Total (COP)', 'Contracts', 'Largest contract (COP)'],
+      rows: [
+        ['Bancolombia', '491.37 billion', '1', '491.37 billion'],
+        ['ESE Metrosalud', '342.73 billion', '28', '45.00 billion'],
+        ['Institución Universitaria ITM', '283.68 billion', '63', '17.31 billion'],
+        ['Empresa de Desarrollo Urbano de Medellín', '222.54 billion', '10', '117.73 billion'],
+        ['Empresa para la Seguridad y Soluciones Urbanas, ESU', '162.99 billion', '9', '51.55 billion'],
+      ],
+      warnings: [
+        'Bancolombia: its total comes from a single contract of about 491 trillion pesos. It may be a typing error ' +
+          'or an unusual contract. It should be checked at the source before being taken as real.',
+        'Metrosalud, ITM and the other entities are mostly contracts between public bodies. A ranking of private ' +
+          'suppliers would look different.',
+        'The data covers SECOP II only, so the figures are a floor, not the total contracted.',
+      ],
+    },
+    findings: {
+      title: 'What the recording shows',
+      items: [
+        'It got the hard part right: it found that SECOP II lists the city government under another name, noticed ' +
+          'that the city council and the ombudsman share its tax ID, and filtered by the exact name.',
+        'It slipped once while writing: it wrote "491 billones" (trillion) where its own table says 491 billion, a ' +
+          'thousand times less. The number the tool returned was right; amounts should be formatted by code, not by the model.',
+        'Finding the entity cost a timeout and two extra calls. Name search is the slow path on this dataset.',
+      ],
+    },
+    more: { text: 'The full session, in the README', href: `${GITHUB}/secop-mcp#the-same-question-asked-through-the-model` },
+  },
   personal: {
     title: 'Other projects of my own',
     items: [
@@ -614,13 +764,14 @@ const en: Content = {
       },
       {
         name: 'CrediYa',
-        kind: 'Reactive microservices',
+        kind: 'Microservices · SQS · Lambda',
         summary:
-          'Authentication and loan applications as two reactive microservices with clean architecture, JWT roles, ' +
-          'an OpenAPI contract and a non-blocking HTTP client between them.',
-        proof: '106 tests across the two services, with architecture rules and mutation testing in CI. The whole flow checked by hand against PostgreSQL.',
-        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'JWT', 'ArchUnit', 'PIT'],
-        repo: `${GITHUB}/crediya-microservice-auth`,
+          'Two reactive microservices with a hexagonal architecture: authentication with JWT, and loan requests. ' +
+          'When an adviser approves or rejects a request, the service puts the decision on an SQS queue and a ' +
+          'Lambda function emails the client.',
+        proof: '119 tests across the two services, with architecture rules and mutation testing. CI starts the queue and the Lambda on LocalStack and checks that a message ends up as an email. It is not deployed to AWS.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'SQS', 'Lambda', 'LocalStack', 'ArchUnit', 'PIT'],
+        repo: `${GITHUB}/crediya-microservice-loan`,
       },
     ],
   },
@@ -648,7 +799,7 @@ const en: Content = {
   },
   contact: {
     title: "Let's talk",
-    text: 'I am looking for an AI engineer role, or a backend or full-stack role with applied AI. Write to me and I will walk you through any of these projects.',
+    text: 'Open to opportunities as an AI Engineer, Backend Engineer or Full-Stack Engineer. If my profile matches what your team is looking for, I would be glad to set up a conversation.',
     email: 'Email me',
     github: 'GitHub',
   },

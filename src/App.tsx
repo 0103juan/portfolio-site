@@ -13,6 +13,7 @@ import { ScrollProgress } from '@/components/ui/skiper-ui/skiper89'
 import { cn } from '@/lib/utils'
 
 import { content, EMAIL, GITHUB, LINKEDIN, type Content, type Lang } from './content'
+import { Demo } from './Demo'
 
 type Project = Content['ai']['items'][number]
 
@@ -338,6 +339,8 @@ export default function App() {
               ))}
             </div>
           )}
+
+          <Demo demo={t.demo} />
 
           <h3 className="label text-ash mt-20 mb-4">{t.personal.title}</h3>
           <ul className="border-t">
