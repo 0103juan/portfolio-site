@@ -24,12 +24,12 @@ Every part exists once and means one thing, so the page reads as one piece and n
 |---|---|---|
 | Section | `components/Section.tsx` | the band, the air above and below (`section`: one value for the whole page) and the head: label, title, introduction |
 | Card | `card` in `index.css` | a tile in the surface colour with one radius and one padding, never outlined, text one step smaller than the page's |
-| Project | `components/ProjectCard.tsx` | what it is at the top, what backs it (measured result, links, tools) under a rule at the foot; the same card in the row of AI projects, the product and the other projects |
+| Project | `components/ProjectCard.tsx` | what it is, the measured result, then links and tools: three rows shared with the cards beside it (a subgrid), so the result and the links start on the same line in every card of a row; the same card in the row of AI projects, the product and the other projects |
 | Screen | `screen` in `index.css` | a screenshot or the terminal: the only things that cast a shadow |
 | Tool | `components/Chips.tsx` | a tool or a technique is always a chip |
 | Points | `components/Points.tsx` | what was built or found, as a list that opens with the accent arrow |
 
-Empty room is measured, not guessed. The distance from the end of one section to the label of the next is the same at every boundary; the first screen holds the whole introduction (headline, photo and the three figures); the notes of the recorded demo stay beside it for as long as it is on screen; the recording shows its steps dimmed before they run instead of an empty window; a project left alone in the last row takes the whole row; and the open layer of the stack is as tall as what it holds.
+Empty room is measured, not guessed. The distance from the end of one section to the label of the next is the same at every boundary; the first screen holds the whole introduction (headline, photo and the three figures); the notes of the recorded demo stay beside it for as long as it is on screen; the recording shows its steps dimmed before they run instead of an empty window; cards in a row share their rows instead of leaving a hole in the shorter ones; a project left alone in the last row takes the whole row; and the open layer of the stack is as tall as what it holds.
 
 ## Motion
 

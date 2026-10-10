@@ -12,6 +12,7 @@ import { Demo } from './Demo'
 /**
  * The projects as one row that runs off the screen. It is the browser's own scrolling with snap points, so a
  * finger or a trackpad throws it with the platform's real momentum and bounce; the arrows are for a mouse.
+ * The row is a grid of three lines that every card shares, so their parts line up across the whole row.
  */
 function ProjectRow({ items, labels }: { items: Project[]; labels: LinkLabels }) {
   const row = useRef<HTMLDivElement>(null)
@@ -27,10 +28,10 @@ function ProjectRow({ items, labels }: { items: Project[]; labels: LinkLabels })
     <Reveal>
       <div
         ref={row}
-        className="bleed-row flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="bleed-row grid snap-x snap-mandatory auto-cols-[min(84vw,28rem)] grid-flow-col grid-rows-[repeat(3,auto)] gap-x-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => (
-          <ProjectCard key={item.name} project={item} labels={labels} className="w-[min(84vw,28rem)] shrink-0 snap-start" />
+          <ProjectCard key={item.name} project={item} labels={labels} className="snap-start" />
         ))}
       </div>
       {/* The links inside the cards already move the row for the keyboard, so the arrows stay out of its way. */}

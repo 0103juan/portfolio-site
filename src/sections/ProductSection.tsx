@@ -24,8 +24,8 @@ function Zoom({ children, className }: { children: ReactNode; className?: string
 }
 
 /**
- * Projects two to a row, arriving one after another. An odd one out takes the whole last row, laid out
- * across it, instead of leaving half of that row empty.
+ * Projects two to a row, arriving one after another, each pair sharing its three lines. An odd one out
+ * takes the whole last row, laid out across it, instead of leaving half of that row empty.
  */
 function ProjectGrid({ items, labels, className }: { items: Project[]; labels: LinkLabels; className?: string }) {
   return (
@@ -33,7 +33,7 @@ function ProjectGrid({ items, labels, className }: { items: Project[]; labels: L
       {items.map((item, i) => {
         const alone = items.length % 2 === 1 && i === items.length - 1
         return (
-          <Reveal key={item.name} delay={(i % 2) * 0.08} className={cn('grid', alone && 'md:col-span-2')}>
+          <Reveal key={item.name} delay={(i % 2) * 0.08} className={alone ? 'md:col-span-2' : 'row-span-3 grid grid-rows-subgrid'}>
             <ProjectCard project={item} labels={labels} wide={alone} />
           </Reveal>
         )
