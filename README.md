@@ -8,7 +8,8 @@ React 19, TypeScript, Vite and Tailwind CSS, with animated components from [Skip
 
 ## How it is built
 
-- **All copy lives in `src/content.ts`**, once per language, under one `Content` type. If the Spanish and English versions drift apart in structure, the build fails.
+- **All copy lives in `src/content/`**, one file per language (`es.ts`, `en.ts`), under one `Content` type (`types.ts`). If the Spanish and English versions drift apart in structure, the build fails.
+- **One file per section** in `src/sections/`, composed in `src/App.tsx`. The order of the page is one list, `src/sections/order.ts`: the header's links and each section's number come from it, so adding a section does not touch the others. Each section declares the part of the content it reads. Pieces used by more than one section are in `src/components/`, and the language and media-query logic in `src/hooks/`.
 - The language comes from `?lang=es|en` in the URL (so a link can be sent in one language), then the last choice, then the browser's language.
 - One dark theme on purpose: near-black, bone white and a single accent, set as Tailwind theme tokens in `src/index.css`. The dashboard and the mobile app of the product share it.
 - The screenshots in `public/shots/` are of the real apps with real public data.
@@ -32,7 +33,7 @@ Their free licence requires attribution: it is in the site footer, in this READM
 
 ## Confidentiality rule
 
-Client work is described by sector only: no client or employer names, no screenshots of client systems, no schemas, no internal figures. Keep it that way when editing `content.ts`.
+Client work is described by sector only: no client or employer names, no screenshots of client systems, no schemas, no internal figures. Keep it that way when editing `src/content/`.
 
 ## Run it
 
@@ -49,4 +50,4 @@ The build uses relative URLs, so it works under any path. `.github/workflows/dep
 
 ## License
 
-[MIT](LICENSE) for the code. Not covered: my photo (`src/Image.jpg`, `src/assets/portrait.jpg`), the text about me in `src/content.ts`, and the components in `src/components/ui/skiper-ui/`, which stay under Skiper UI's own licence.
+[MIT](LICENSE) for the code. Not covered: my photo (`src/Image.jpg`, `src/assets/portrait.jpg`), the text about me in `src/content/`, and the components in `src/components/ui/skiper-ui/`, which stay under Skiper UI's own licence.

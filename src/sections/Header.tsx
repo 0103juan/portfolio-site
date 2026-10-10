@@ -14,7 +14,7 @@ export function Header({ nav, lang, other, onToggleLang }: Props) {
         <a href="#top" className="label font-bold">
           JPC<span className="text-volt">.</span>
         </a>
-        <nav className="label ml-auto hidden gap-6 sm:flex">
+        <nav className="label ml-auto hidden gap-6 lg:flex">
           {SECTION_IDS.map((id) => (
             <a key={id} href={`#${id}`} aria-label={nav[id]}>
               <TextRoll>{nav[id]}</TextRoll>
@@ -26,7 +26,7 @@ export function Header({ nav, lang, other, onToggleLang }: Props) {
           onClick={onToggleLang}
           lang={other}
           aria-label={other === 'en' ? 'Read this page in English' : 'Leer esta página en español'}
-          className="label hover:bg-volt hover:text-background ml-auto cursor-pointer border px-3 py-1.5 transition-colors sm:ml-0"
+          className="label hover:bg-volt hover:text-background ml-auto cursor-pointer border px-3 py-1.5 transition-colors lg:ml-0"
         >
           {lang.toUpperCase()} → {other.toUpperCase()}
         </button>

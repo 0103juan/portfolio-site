@@ -2,15 +2,15 @@ import { GITHUB } from './links'
 import type { Content } from './types'
 
 export const es: Content = {
-  nav: { work: 'Experiencia', product: 'Producto', ai: 'IA aplicada', stack: 'Stack', contact: 'Contacto' },
-  role: 'AI Engineer · Backend',
+  nav: { ai: 'IA aplicada', work: 'Experiencia', fullstack: 'Full stack', product: 'Producto', stack: 'Stack', contact: 'Contacto' },
+  role: 'AI Engineer · Backend · Full Stack',
   pitch:
-    'Llevo modelos de lenguaje a sistemas que se pueden verificar. Desde 2022 construyo backends que convierten ' +
-    'documentos en datos para entidades financieras y del sector público en Colombia: extracción con LLM, validación ' +
-    'con reglas de negocio e integración con los sistemas que ya existen.',
+    'Llevo modelos de lenguaje a sistemas que se pueden verificar, de la base de datos a la pantalla. Como Backend ' +
+    'Lead, desde 2022 construyo sistemas que convierten documentos en datos para entidades financieras y del sector ' +
+    'público en Colombia.',
   facts: [
-    { value: '5', label: 'proyectos de IA propios, con pruebas y resultados medidos' },
-    { value: '4+ años', label: 'de backend en producción para finanzas y sector público' },
+    { value: '7', label: 'proyectos de IA propios, con pruebas y resultados medidos' },
+    { value: '6 años', label: 'desarrollando software, cuatro liderando backend para finanzas y sector público' },
     { value: '1 producto', label: 'llevado a cuatro stacks: Node.js, Angular, Flutter y React' },
   ],
   work: {
@@ -130,6 +130,57 @@ export const es: Content = {
       },
     ],
   },
+  fullstack: {
+    title: 'De la base de datos a la pantalla',
+    intro:
+      'Mi trabajo diario es backend. Estas son las capas que he construido de punta a punta en proyectos propios, ' +
+      'cada una con el repositorio que lo demuestra. No me presento como especialista en frontend: sí como alguien ' +
+      'que puede llevar un producto completo hasta producción.',
+    layers: [
+      {
+        name: 'Web',
+        tech: ['Angular 22', 'React 19', 'TypeScript', 'Tailwind'],
+        proof: 'Un panel en vivo con 12 pruebas unitarias y 6 de extremo a extremo que corren en cada despliegue, y este sitio.',
+        project: 'secop-dashboard',
+        repo: `${GITHUB}/secop-dashboard`,
+      },
+      {
+        name: 'Móvil',
+        tech: ['Flutter', 'Dart', 'Kotlin', 'Jetpack Compose'],
+        proof: 'Una app en Flutter que compila para Android y web, con prueba de widgets del recorrido completo. PC Remote es una app Android nativa.',
+        project: 'secop-mobile',
+        repo: `${GITHUB}/secop-mobile`,
+      },
+      {
+        name: 'API y backend',
+        tech: ['Java 21', 'Spring Boot', 'Python', 'FastAPI', 'Node.js'],
+        proof: 'Dos microservicios reactivos con arquitectura hexagonal y 119 pruebas, con reglas de arquitectura y pruebas de mutación.',
+        project: 'crediya',
+        repo: `${GITHUB}/crediya-microservice-loan`,
+      },
+      {
+        name: 'Datos',
+        tech: ['PostgreSQL', 'pgvector', 'Redis', 'MySQL'],
+        proof: '35.718 contratos cargados de forma incremental; búsqueda híbrida en una sola consulta, con mediana de 15 ms.',
+        project: 'secop-analyst',
+        repo: `${GITHUB}/secop-analyst`,
+      },
+      {
+        name: 'Mensajería',
+        tech: ['SQS', 'Lambda', 'Pub/Sub', 'WebSocket'],
+        proof: 'La decisión de un crédito viaja por una cola hasta una función que avisa por correo; CI comprueba el recorrido completo.',
+        project: 'crediya',
+        repo: `${GITHUB}/crediya-microservice-loan`,
+      },
+      {
+        name: 'Infraestructura',
+        tech: ['Docker', 'Kubernetes', 'Terraform', 'AWS', 'GitHub Actions'],
+        proof: 'Siete módulos de Terraform para AWS con 31 pruebas contra un proveedor simulado. No se ha aplicado en una cuenta real.',
+        project: 'terraform-aws-platform',
+        repo: `${GITHUB}/terraform-aws-platform`,
+      },
+    ],
+  },
   product: {
     title: 'Contratos a la vista',
     intro:
@@ -190,9 +241,21 @@ export const es: Content = {
   ai: {
     title: 'IA aplicada',
     intro:
-      'Cinco proyectos en Python contra la API de Claude, sin frameworks de agentes, para que el mecanismo se vea en ' +
-      'el código. Cada README publica solo números que salieron de una ejecución real, y una sección de límites.',
+      'Siete proyectos en Python contra la API de Claude. Cinco no usan frameworks de agentes, para que el mecanismo ' +
+      'se vea en el código; el agente de contratos usa LangGraph. Cada README publica solo números que salieron de ' +
+      'una ejecución real, y una sección de límites.',
     items: [
+      {
+        name: 'secop-analyst',
+        kind: 'Agente con LangGraph',
+        summary:
+          'Un agente que responde preguntas sobre 35.718 contratos públicos: búsqueda híbrida en PostgreSQL con ' +
+          'pgvector, SQL escrito por el modelo y contenido por la base de datos, pausa para aprobación humana cuando ' +
+          'una consulta es costosa, y memoria en dos niveles entre Redis y Postgres.',
+        proof: '28 pruebas contra Postgres y Redis reales. En una pregunta real, 38 cifras comprobadas contra la base y todas correctas, en 33 s y unos 0,06 USD. Corre en Docker Compose y en Kubernetes local, con trazas de OpenTelemetry.',
+        stack: ['Python', 'LangGraph', 'PostgreSQL', 'pgvector', 'Redis', 'FastAPI', 'OpenTelemetry', 'Kubernetes'],
+        repo: `${GITHUB}/secop-analyst`,
+      },
       {
         name: 'consultor-tributario',
         kind: 'RAG en español',
@@ -243,6 +306,17 @@ export const es: Content = {
         proof: '18 pruebas, una con Docker real. En una sesión real, el agente revisor encontró tres defectos que las 35 pruebas del programador no cubrían.',
         stack: ['Python', 'Docker', 'Claude'],
         repo: `${GITHUB}/sandboxed-agent`,
+      },
+      {
+        name: 'model-gateway',
+        kind: 'Gateway de modelos',
+        summary:
+          'Un paquete que mis proyectos importan en vez de llamar al SDK: enruta cada tarea a un modelo pequeño o ' +
+          'grande, cambia de modelo si uno falla, guarda las respuestas en caché, registra el costo de cada llamada y ' +
+          'corta cuando una clave agota su presupuesto.',
+        proof: '36 pruebas. Medido en 33 preguntas: el modelo grande acertó 28 por 0,66 USD y el pequeño 27 por 0,27 USD; repetir la corrida costó 0,00 USD desde la caché.',
+        stack: ['Python', 'Claude', 'Pydantic'],
+        repo: `${GITHUB}/model-gateway`,
       },
     ],
   },
@@ -357,7 +431,7 @@ export const es: Content = {
       {
         name: 'IA aplicada',
         items: ['Extracción multimodal', 'RAG híbrido', 'Reranking', 'Evaluación con conjuntos dorados', 'Servidores MCP',
-                'Agentes con aprobación humana', 'API de Claude', 'API de Gemini'],
+                'Agentes con LangGraph', 'Agentes con aprobación humana', 'API de Claude', 'API de Gemini'],
       },
       {
         name: 'Todos los días',
@@ -366,7 +440,7 @@ export const es: Content = {
       },
       {
         name: 'También construyo con',
-        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'AWS Lambda', 'Terraform', 'ANTLR4'],
+        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
       },
     ],
   },

@@ -7,6 +7,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { AiSection } from '@/sections/AiSection'
 import { ContactSection } from '@/sections/ContactSection'
 import { Footer } from '@/sections/Footer'
+import { FullStackSection } from '@/sections/FullStackSection'
 import { Header } from '@/sections/Header'
 import { Hero } from '@/sections/Hero'
 import { Highlights } from '@/sections/Highlights'
@@ -30,6 +31,7 @@ export default function App() {
         <Highlights t={t} />
         <AiSection t={t} wide={wide} />
         <WorkSection t={t} stacked={wide && !reducedMotion} />
+        <FullStackSection t={t} />
         <ProductSection t={t} />
         <StackSection t={t} />
         <ContactSection t={t} />

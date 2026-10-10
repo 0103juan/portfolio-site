@@ -2,15 +2,14 @@ import { GITHUB } from './links'
 import type { Content } from './types'
 
 export const en: Content = {
-  nav: { work: 'Experience', product: 'Product', ai: 'Applied AI', stack: 'Stack', contact: 'Contact' },
-  role: 'AI Engineer · Backend',
+  nav: { ai: 'Applied AI', work: 'Experience', fullstack: 'Full stack', product: 'Product', stack: 'Stack', contact: 'Contact' },
+  role: 'AI Engineer · Backend · Full Stack',
   pitch:
-    'I put language models into systems you can verify. Since 2022 I have been building backends that turn ' +
-    'documents into data for financial and public-sector organisations in Colombia: extraction with LLMs, validation ' +
-    'with business rules, and integration with the systems already in place.',
+    'I put language models into systems you can verify, from the database to the screen. As a Backend Lead, since ' +
+    '2022 I have built systems that turn documents into data for financial and public-sector organisations in Colombia.',
   facts: [
-    { value: '5', label: 'AI projects of my own, with tests and measured results' },
-    { value: '4+ years', label: 'of production backend for finance and the public sector' },
+    { value: '7', label: 'AI projects of my own, with tests and measured results' },
+    { value: '6 years', label: 'building software, four of them leading backend for finance and the public sector' },
     { value: '1 product', label: 'taken to four stacks: Node.js, Angular, Flutter and React' },
   ],
   work: {
@@ -129,6 +128,57 @@ export const en: Content = {
       },
     ],
   },
+  fullstack: {
+    title: 'From the database to the screen',
+    intro:
+      'My daily work is backend. These are the layers I have built end to end in projects of my own, each with the ' +
+      'repository that proves it. I do not present myself as a frontend specialist: I do as someone who can take a ' +
+      'whole product to production.',
+    layers: [
+      {
+        name: 'Web',
+        tech: ['Angular 22', 'React 19', 'TypeScript', 'Tailwind'],
+        proof: 'A live dashboard with 12 unit tests and 6 end-to-end tests that run on every deployment, and this site.',
+        project: 'secop-dashboard',
+        repo: `${GITHUB}/secop-dashboard`,
+      },
+      {
+        name: 'Mobile',
+        tech: ['Flutter', 'Dart', 'Kotlin', 'Jetpack Compose'],
+        proof: 'A Flutter app that builds for Android and the web, with a widget test of the whole journey. PC Remote is a native Android app.',
+        project: 'secop-mobile',
+        repo: `${GITHUB}/secop-mobile`,
+      },
+      {
+        name: 'API and backend',
+        tech: ['Java 21', 'Spring Boot', 'Python', 'FastAPI', 'Node.js'],
+        proof: 'Two reactive microservices with a hexagonal architecture and 119 tests, with architecture rules and mutation testing.',
+        project: 'crediya',
+        repo: `${GITHUB}/crediya-microservice-loan`,
+      },
+      {
+        name: 'Data',
+        tech: ['PostgreSQL', 'pgvector', 'Redis', 'MySQL'],
+        proof: '35,718 contracts loaded incrementally; hybrid search in a single query, with a median of 15 ms.',
+        project: 'secop-analyst',
+        repo: `${GITHUB}/secop-analyst`,
+      },
+      {
+        name: 'Messaging',
+        tech: ['SQS', 'Lambda', 'Pub/Sub', 'WebSocket'],
+        proof: 'A loan decision travels through a queue to a function that emails the client; CI checks the whole path.',
+        project: 'crediya',
+        repo: `${GITHUB}/crediya-microservice-loan`,
+      },
+      {
+        name: 'Infrastructure',
+        tech: ['Docker', 'Kubernetes', 'Terraform', 'AWS', 'GitHub Actions'],
+        proof: 'Seven Terraform modules for AWS with 31 tests against a mock provider. It has not been applied to a real account.',
+        project: 'terraform-aws-platform',
+        repo: `${GITHUB}/terraform-aws-platform`,
+      },
+    ],
+  },
   product: {
     title: 'Contratos a la vista',
     intro:
@@ -189,9 +239,21 @@ export const en: Content = {
   ai: {
     title: 'Applied AI',
     intro:
-      'Five Python projects written directly against the Claude API, with no agent framework, so the mechanism is ' +
-      'visible in the code. Each README publishes only numbers that came from a real run, and a section on limits.',
+      'Seven Python projects against the Claude API. Five use no agent framework, so the mechanism is visible in ' +
+      'the code; the contracts agent uses LangGraph. Each README publishes only numbers that came from a real run, ' +
+      'and a section on limits.',
     items: [
+      {
+        name: 'secop-analyst',
+        kind: 'Agent with LangGraph',
+        summary:
+          'An agent that answers questions about 35,718 public contracts: hybrid search in PostgreSQL with pgvector, ' +
+          'SQL written by the model and contained by the database, a pause for human approval when a query is ' +
+          'expensive, and two-tier memory between Redis and Postgres.',
+        proof: '28 tests against real Postgres and Redis. On one real question, 38 figures checked against the database and all correct, in 33 s and about 0.06 USD. It runs on Docker Compose and on local Kubernetes, with OpenTelemetry traces.',
+        stack: ['Python', 'LangGraph', 'PostgreSQL', 'pgvector', 'Redis', 'FastAPI', 'OpenTelemetry', 'Kubernetes'],
+        repo: `${GITHUB}/secop-analyst`,
+      },
       {
         name: 'consultor-tributario',
         kind: 'RAG in Spanish',
@@ -242,6 +304,17 @@ export const en: Content = {
         proof: "18 tests, one with real Docker. In a real session the reviewer agent found three defects that the coder's 35 tests did not cover.",
         stack: ['Python', 'Docker', 'Claude'],
         repo: `${GITHUB}/sandboxed-agent`,
+      },
+      {
+        name: 'model-gateway',
+        kind: 'Model gateway',
+        summary:
+          'A package my projects import instead of calling the SDK: it routes each task to a small or a large model, ' +
+          'switches model when one fails, caches responses, records what every call cost and stops when a key has ' +
+          'spent its budget.',
+        proof: '36 tests. Measured on 33 questions: the large model got 28 right for 0.66 USD and the small one 27 for 0.27 USD; repeating the run cost 0.00 USD from the cache.',
+        stack: ['Python', 'Claude', 'Pydantic'],
+        repo: `${GITHUB}/model-gateway`,
       },
     ],
   },
@@ -356,7 +429,7 @@ export const en: Content = {
       {
         name: 'Applied AI',
         items: ['Multimodal extraction', 'Hybrid RAG', 'Reranking', 'Evaluation with golden sets', 'MCP servers',
-                'Agents with human approval', 'Claude API', 'Gemini API'],
+                'Agents with LangGraph', 'Agents with human approval', 'Claude API', 'Gemini API'],
       },
       {
         name: 'Every day',
@@ -365,7 +438,7 @@ export const en: Content = {
       },
       {
         name: 'I also build with',
-        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'AWS Lambda', 'Terraform', 'ANTLR4'],
+        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
       },
     ],
   },

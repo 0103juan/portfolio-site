@@ -8,12 +8,16 @@ export type Lang = 'es' | 'en'
 export type Work = { sector: string; period: string; title: string; summary: string; points: string[]; stack: string[] }
 export type Project = { name: string; kind: string; summary: string; proof: string; stack: string[]; repo?: string; demo?: string }
 
+// One layer of a product, the tools I have used for it and the project that proves it.
+export type Layer = { name: string; tech: string[]; proof: string; project: string; repo: string }
+
 export type Content = {
-  nav: { work: string; product: string; ai: string; stack: string; contact: string }
+  nav: { ai: string; work: string; fullstack: string; product: string; stack: string; contact: string }
   role: string
   pitch: string
   facts: { value: string; label: string }[]
   work: { title: string; intro: string; items: Work[] }
+  fullstack: { title: string; intro: string; layers: Layer[] }
   product: {
     title: string
     intro: string
