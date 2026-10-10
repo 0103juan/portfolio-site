@@ -27,6 +27,8 @@ export const en: Content = {
         summary:
           'A backend that reads insurance policies and identity documents, extracts their fields and validates them ' +
           "against the organisation's business rules.",
+        outcome:
+          'The fields are no longer typed in from the document: they arrive extracted and validated, and a person reviews only what fails the rules.',
         points: [
           'It began with one template per insurer format; I later added extraction with a multimodal model behind our own FastAPI service.',
           'I split the communication with the model into three parts: data mapping, validation orchestration and a thin facade.',
@@ -41,6 +43,8 @@ export const en: Content = {
         summary:
           'Banks receive garnishment orders as PDFs. The system reads them, identifies the defendants and the case ' +
           'data, and integrates with the core banking system.',
+        outcome:
+          'The orders are no longer read and typed in one by one: the bank receives the case data ready for its core system and reviews only the inconsistencies.',
         points: [
           'ANTLR4 grammars to pull fields out of legal text that every court words differently.',
           'A second version with clean architecture in Gradle modules, LLM extraction and configurable field schemas.',
@@ -55,6 +59,7 @@ export const en: Content = {
         summary:
           'Microservices that receive minutes of shareholder and board meetings, extract appointments, quorum and ' +
           'votes, and return a structured summary for the reviewer.',
+        outcome: 'Whoever reviews a set of minutes starts from a structured summary instead of reading it whole.',
         points: [
           'Asynchronous processing with queues and non-blocking retries, and live progress over WebSocket.',
           'Prompt tuning on real cases: quorum with attendees who hold no shares, appointments described in free text.',
@@ -69,6 +74,8 @@ export const en: Content = {
         summary:
           'Three systems for the same organisation: validation of bulk payments, verification of ' +
           'administrative acts, and monitoring of the collection bank accounts.',
+        outcome:
+          'Matching payments against banks and administrative acts is no longer done by hand: the system delivers it with the inconsistencies flagged.',
         points: [
           'Bulk payment uploads from Excel, matching against credit notes, and reports that split revenue between the region and its municipalities.',
           'Extraction of administrative acts from PDF and matching against bank data, with inconsistency management.',
@@ -97,6 +104,7 @@ export const en: Content = {
         summary:
           'Validates the payslips an applicant submits: extracts their fields according to each payer\'s format and ' +
           'checks them against the source.',
+        outcome: "Nobody looks a payslip up on the issuer's portal any more: a robot does, and leaves the result compared with the payslip.",
         points: [
           'Extractors and validators per format, including QR code reading.',
           "Robots that query the issuer's verification portal and compare the result.",
@@ -110,6 +118,7 @@ export const en: Content = {
         summary:
           'A modular monolith to operate a georeferenced inventory: contracts, legal obligations, work orders and ' +
           'notifications.',
+        outcome: 'The inventory, the contracts and the work orders are in one system with a map, instead of scattered files.',
         points: [
           'Map search and filtering with a cache, and files served through signed URLs.',
           'Roles and permissions, versioned migrations and OpenAPI documentation for the whole API.',
@@ -121,11 +130,34 @@ export const en: Content = {
         period: '2023',
         title: 'Serverless platform for templates and extraction',
         summary: 'A serverless API where each company defines its document templates and processes files in batches.',
+        outcome: 'Each company creates its own templates and processes its batches without asking for development work.',
         points: [
           'Multi-file upload with presigned URLs, managed OCR and control of orphaned processes.',
           'Users, roles and companies on a managed identity provider.',
         ],
         stack: ['Python', 'Flask', 'AWS Lambda', 'Cognito', 'Textract', 'S3', 'Serverless Framework'],
+      },
+    ],
+  },
+  background: {
+    title: 'Education and open source',
+    items: [
+      {
+        name: 'Electronics and Telecommunications Engineering',
+        kind: 'Education',
+        summary: 'Universidad del Cauca, 2018 – 2024.',
+        proof: 'Thesis: model-driven smart contracts.',
+        stack: ['Hyperledger'],
+      },
+      {
+        name: 'scaffold-clean-architecture',
+        kind: 'Open source',
+        summary:
+          "Bancolombia's Gradle plugin that generates Java projects with clean architecture. Reactive projects " +
+          'generated without Lombok did not compile: I fixed the templates that depended on it, and a test.',
+        proof: 'PR #994, approved by a maintainer and released in version 4.7.1.',
+        stack: ['Java', 'Gradle', 'Spring WebFlux'],
+        repo: 'https://github.com/bancolombia/scaffold-clean-architecture/pull/994',
       },
     ],
   },
@@ -242,7 +274,8 @@ export const en: Content = {
     intro:
       'Seven Python projects against the Claude API. Five use no agent framework, so the mechanism is visible in ' +
       'the code; the contracts agent uses LangGraph. Each README publishes only numbers that came from a real run, ' +
-      'and a section on limits.',
+      'and a section on limits. I built them in October 2026 to show in the open how I work with language models: ' +
+      'the systems I build for clients cannot be shown.',
     items: [
       {
         name: 'secop-analyst',

@@ -2,12 +2,10 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { useRef, type ReactNode } from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
-import { ProjectCard } from '@/components/ProjectCard'
-import type { LinkLabels } from '@/components/ProjectLinks'
+import { ProjectGrid } from '@/components/ProjectGrid'
 import { Section } from '@/components/Section'
-import type { Content, Project } from '@/content'
+import type { Content } from '@/content'
 import { shot } from '@/lib/format'
-import { cn } from '@/lib/utils'
 
 /** The screenshots start slightly small and grow to full size as they reach the middle of the screen. */
 function Zoom({ children, className }: { children: ReactNode; className?: string }) {
@@ -20,25 +18,6 @@ function Zoom({ children, className }: { children: ReactNode; className?: string
     <motion.div ref={frame} className={className} style={reducedMotion ? undefined : { scale }}>
       {children}
     </motion.div>
-  )
-}
-
-/**
- * Projects two to a row, arriving one after another, each pair sharing its three lines. An odd one out
- * takes the whole last row, laid out across it, instead of leaving half of that row empty.
- */
-function ProjectGrid({ items, labels, className }: { items: Project[]; labels: LinkLabels; className?: string }) {
-  return (
-    <div className={cn('grid gap-4 md:grid-cols-2', className)}>
-      {items.map((item, i) => {
-        const alone = items.length % 2 === 1 && i === items.length - 1
-        return (
-          <Reveal key={item.name} delay={(i % 2) * 0.08} className={alone ? 'md:col-span-2' : 'row-span-3 grid grid-rows-subgrid'}>
-            <ProjectCard project={item} labels={labels} wide={alone} />
-          </Reveal>
-        )
-      })}
-    </div>
   )
 }
 

@@ -27,6 +27,8 @@ export const es: Content = {
         summary:
           'Un backend que lee pólizas de seguros y documentos de identidad, extrae sus campos y los valida contra las ' +
           'reglas de negocio de la entidad.',
+        outcome:
+          'Los campos ya no se digitan desde el documento: llegan extraídos y validados, y una persona revisa solo lo que no pasa las reglas.',
         points: [
           'Empezó con plantillas por formato de aseguradora; después sumé extracción con un modelo multimodal detrás de un servicio propio en FastAPI.',
           'Separé la comunicación con el modelo en tres piezas: mapeo de datos, orquestación de validaciones y una fachada ligera.',
@@ -41,6 +43,8 @@ export const es: Content = {
         summary:
           'Los bancos reciben órdenes de embargo en PDF. El sistema las lee, identifica a los demandados y los datos ' +
           'del proceso, y se integra con el core bancario.',
+        outcome:
+          'Los oficios ya no se leen y digitan uno por uno: el banco recibe los datos del proceso listos para su core y revisa solo las inconsistencias.',
         points: [
           'Gramáticas ANTLR4 para sacar campos de textos jurídicos que cada juzgado redacta distinto.',
           'Segunda versión con arquitectura limpia en módulos Gradle, extracción con LLM y esquemas de campos configurables.',
@@ -55,6 +59,7 @@ export const es: Content = {
         summary:
           'Microservicios que reciben actas de asambleas y juntas, extraen nombramientos, quórum y votaciones, y ' +
           'devuelven un resumen estructurado para quien las revisa.',
+        outcome: 'Quien revisa un acta parte de un resumen estructurado en vez de leerla completa.',
         points: [
           'Procesamiento asíncrono con colas y reintentos que no bloquean, y avance en tiempo real por WebSocket.',
           'Afinamiento de prompts sobre casos reales: quórum con personas sin acciones, nombramientos descritos en texto libre.',
@@ -69,6 +74,8 @@ export const es: Content = {
         summary:
           'Tres sistemas para la misma entidad: validación de pagos masivos, verificación de actos ' +
           'administrativos y seguimiento de las cuentas bancarias de recaudo.',
+        outcome:
+          'El cruce de pagos contra bancos y actos administrativos ya no se hace a mano: el sistema lo entrega con las inconsistencias señaladas.',
         points: [
           'Carga masiva de pagos desde Excel, cruce contra notas crédito y reportes de dispersión entre departamento y municipios.',
           'Extracción de actos administrativos en PDF y cruce contra la información bancaria, con gestión de inconsistencias.',
@@ -97,6 +104,8 @@ export const es: Content = {
         summary:
           'Valida los desprendibles que un solicitante presenta: extrae sus campos según el formato de cada pagador y ' +
           'los contrasta con la fuente.',
+        outcome:
+          'La consulta en el portal de la entidad emisora ya no la hace una persona: la hace un robot y deja el resultado comparado con el desprendible.',
         points: [
           'Extractores y validadores por formato, incluida la lectura de códigos QR.',
           'Robots que consultan el portal de verificación de la entidad emisora y comparan el resultado.',
@@ -110,6 +119,7 @@ export const es: Content = {
         summary:
           'Monolito modular para operar un inventario georreferenciado: contratos, obligaciones legales, órdenes de ' +
           'trabajo y notificaciones.',
+        outcome: 'El inventario, los contratos y las órdenes de trabajo quedaron en un solo sistema con mapa, en vez de archivos sueltos.',
         points: [
           'Búsqueda y filtrado sobre mapa con caché, y archivos servidos con URL firmada.',
           'Roles y permisos, migraciones versionadas y documentación OpenAPI de toda la API.',
@@ -122,11 +132,34 @@ export const es: Content = {
         title: 'Plataforma serverless de plantillas y extracción',
         summary:
           'API sin servidores para que cada empresa defina sus plantillas de documento y procese archivos por lotes.',
+        outcome: 'Cada empresa crea sus plantillas y procesa sus lotes sin pedir desarrollo.',
         points: [
           'Carga de múltiples archivos con URL prefirmada, OCR administrado y control de procesos huérfanos.',
           'Usuarios, roles y empresas sobre un proveedor de identidad administrado.',
         ],
         stack: ['Python', 'Flask', 'AWS Lambda', 'Cognito', 'Textract', 'S3', 'Serverless Framework'],
+      },
+    ],
+  },
+  background: {
+    title: 'Formación y código abierto',
+    items: [
+      {
+        name: 'Ingeniería Electrónica y Telecomunicaciones',
+        kind: 'Formación',
+        summary: 'Universidad del Cauca, 2018 – 2024.',
+        proof: 'Trabajo de grado: contratos inteligentes dirigidos por modelos.',
+        stack: ['Hyperledger'],
+      },
+      {
+        name: 'scaffold-clean-architecture',
+        kind: 'Código abierto',
+        summary:
+          'El plugin de Gradle de Bancolombia que genera proyectos Java con arquitectura limpia. Los proyectos reactivos ' +
+          'generados sin Lombok no compilaban: corregí las plantillas que dependían de él y una prueba.',
+        proof: 'PR #994, aprobado por un mantenedor y publicado en la versión 4.7.1.',
+        stack: ['Java', 'Gradle', 'Spring WebFlux'],
+        repo: 'https://github.com/bancolombia/scaffold-clean-architecture/pull/994',
       },
     ],
   },
@@ -243,7 +276,8 @@ export const es: Content = {
     intro:
       'Siete proyectos en Python contra la API de Claude. Cinco no usan frameworks de agentes, para que el mecanismo ' +
       'se vea en el código; el agente de contratos usa LangGraph. Cada README publica solo números que salieron de ' +
-      'una ejecución real, y una sección de límites.',
+      'una ejecución real, y una sección de límites. Los construí en octubre de 2026 para mostrar en abierto cómo ' +
+      'trabajo con modelos de lenguaje: los sistemas que hago para clientes no se pueden enseñar.',
     items: [
       {
         name: 'secop-analyst',

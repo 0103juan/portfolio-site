@@ -2,7 +2,9 @@ import { useScroll } from 'framer-motion'
 import { useRef } from 'react'
 
 import { Chips } from '@/components/Chips'
+import { Reveal } from '@/components/motion/Reveal'
 import { Points } from '@/components/Points'
+import { ProjectCard } from '@/components/ProjectCard'
 import { Section } from '@/components/Section'
 import { StickyCard_001 } from '@/components/ui/skiper-ui/skiper16'
 import type { Content, Work } from '@/content'
@@ -25,6 +27,7 @@ function WorkDeck({ items, enabled }: { items: Work[]; enabled: boolean }) {
             <div className="lg:col-span-5">
               <h3 className="title">{item.title}</h3>
               <p className="text-muted mt-4">{item.summary}</p>
+              {item.outcome && <p className="mt-4 leading-snug font-medium">{item.outcome}</p>}
             </div>
             <div className="flex flex-col gap-6 lg:col-span-7">
               <Points items={item.points} />
@@ -38,10 +41,20 @@ function WorkDeck({ items, enabled }: { items: Work[]; enabled: boolean }) {
 }
 
 /** `stacked` turns the deck effect on: it needs room, and motion the reader has not asked to avoid. */
-export function WorkSection({ t, stacked }: { t: Pick<Content, 'nav' | 'work'>; stacked: boolean }) {
+export function WorkSection({ t, stacked }: { t: Pick<Content, 'nav' | 'work' | 'background' | 'live' | 'code'>; stacked: boolean }) {
   return (
     <Section id="work" label={t.nav.work} title={t.work.title} intro={t.work.intro}>
       <WorkDeck items={t.work.items} enabled={stacked} />
+
+      <h3 className="title mt-16 mb-6">{t.background.title}</h3>
+      {/* A row each, like the cards of the deck above: these two have little in common to line up. */}
+      <div className="grid gap-4">
+        {t.background.items.map((item, i) => (
+          <Reveal key={item.name} delay={i * 0.08}>
+            <ProjectCard project={item} labels={t} wide />
+          </Reveal>
+        ))}
+      </div>
     </Section>
   )
 }

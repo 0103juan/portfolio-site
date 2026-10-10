@@ -5,7 +5,8 @@
 
 export type Lang = 'es' | 'en'
 
-export type Work = { sector: string; period: string; title: string; summary: string; points: string[]; stack: string[] }
+// `outcome` is what changed for the people who use the system, in words: never an internal figure.
+export type Work = { sector: string; period: string; title: string; summary: string; outcome?: string; points: string[]; stack: string[] }
 export type Project = { name: string; kind: string; summary: string; proof: string; stack: string[]; repo?: string; demo?: string }
 
 // One layer of a product, the tools I have used for it and the project that proves it.
@@ -18,6 +19,8 @@ export type Content = {
   pitch: string
   facts: { value: number; unit: string; label: string }[] // numbers, so the page can count up to them
   work: { title: string; intro: string; items: Work[] }
+  // What someone else has vouched for: the degree and code merged into other people's projects.
+  background: { title: string; items: Project[] }
   fullstack: { title: string; intro: string; layers: Layer[] }
   product: {
     title: string

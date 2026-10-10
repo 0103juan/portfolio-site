@@ -59,7 +59,7 @@ Their free licence requires attribution: it is in the site footer, in this READM
 
 ## Confidentiality rule
 
-Client work is described by sector only: no client or employer names, no screenshots of client systems, no schemas, no internal figures. Keep it that way when editing `src/content/`.
+Client work is described by sector only: no client or employer names, no screenshots of client systems, no schemas, no internal figures. Keep it that way when editing `src/content/`. What a system changed is said in words (what stopped being done by hand), never with a number that is not public.
 
 ## Run it
 
