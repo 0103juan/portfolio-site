@@ -1,10 +1,9 @@
 import type { Content } from '@/content'
 
-/** The right padding keeps the credit clear of the scroll indicator in the corner. */
 export function Footer({ t }: { t: Pick<Content, 'footer' | 'credit'> }) {
   return (
-    <footer className="bg-surface border-t">
-      <div className="wrap text-muted flex flex-wrap justify-between gap-3 py-6 text-[0.8rem] md:pr-24">
+    <footer className="tinted">
+      <div className="wrap text-muted flex flex-wrap justify-between gap-3 py-6 text-[0.8rem]">
         <span>{t.footer}</span>
         <span>
           {t.credit.replace('Skiper UI.', '')}

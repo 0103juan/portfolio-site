@@ -1,9 +1,10 @@
 import { useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 
-import { ProjectBody } from '@/components/ProjectBody'
+import { Reveal } from '@/components/motion/Reveal'
+import { ProjectCard } from '@/components/ProjectCard'
 import type { LinkLabels } from '@/components/ProjectLinks'
-import { SectionHead } from '@/components/SectionHead'
+import { Section } from '@/components/Section'
 import type { Content, Project } from '@/content'
 
 import { Demo } from './Demo'
@@ -23,22 +24,17 @@ function ProjectRow({ items, labels }: { items: Project[]; labels: LinkLabels })
   }
 
   return (
-    <>
+    <Reveal>
       <div
         ref={row}
-        className="bleed-row flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="bleed-row flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => (
-          <article
-            key={item.name}
-            className="bg-surface w-[min(84vw,25rem)] shrink-0 snap-start rounded-[28px] transition-transform duration-300 ease-out hover:-translate-y-1"
-          >
-            <ProjectBody project={item} labels={labels} />
-          </article>
+          <ProjectCard key={item.name} project={item} labels={labels} className="w-[min(84vw,28rem)] shrink-0 snap-start" />
         ))}
       </div>
       {/* The links inside the cards already move the row for the keyboard, so the arrows stay out of its way. */}
-      <div className="mt-1 hidden justify-end gap-2 md:flex" aria-hidden>
+      <div className="mt-4 hidden justify-end gap-2 md:flex" aria-hidden>
         {([-1, 1] as const).map((direction) => (
           <button
             key={direction}
@@ -51,19 +47,16 @@ function ProjectRow({ items, labels }: { items: Project[]; labels: LinkLabels })
           </button>
         ))}
       </div>
-    </>
+    </Reveal>
   )
 }
 
 /** AI projects come first: it is the work this site is meant to show. */
 export function AiSection({ t }: { t: Pick<Content, 'nav' | 'ai' | 'demo' | 'live' | 'code'> }) {
   return (
-    <section id="ai">
-      <div className="wrap py-24 lg:py-32">
-        <SectionHead label={t.nav.ai} title={t.ai.title} intro={t.ai.intro} />
-        <ProjectRow items={t.ai.items} labels={t} />
-        <Demo demo={t.demo} />
-      </div>
-    </section>
+    <Section id="ai" tinted label={t.nav.ai} title={t.ai.title} intro={t.ai.intro}>
+      <ProjectRow items={t.ai.items} labels={t} />
+      <Demo demo={t.demo} />
+    </Section>
   )
 }

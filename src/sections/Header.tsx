@@ -9,7 +9,10 @@ import { SECTION_IDS } from './order'
 
 type Props = { nav: Content['nav']; lang: Lang; other: Lang; onToggleLang: () => void }
 
-/** The bar floats on a blurred edge instead of a line: the page scrolls under it and fades away. */
+/**
+ * The bar floats on a blurred edge instead of a line: the page scrolls under it and fades away. Its pills are a
+ * veil of the text colour, not the surface colour, so they show over the white bands and over the grey ones.
+ */
 export function Header({ nav, lang, other, onToggleLang }: Props) {
   const active = useActiveSection(SECTION_IDS)
 
@@ -25,7 +28,7 @@ export function Header({ nav, lang, other, onToggleLang }: Props) {
             {SECTION_IDS.map((id) => (
               <a key={id} href={`#${id}`} aria-current={active === id ? 'true' : undefined} className="press relative rounded-full px-3 py-1.5">
                 {/* One pill for the whole bar: it slides to the section being read. */}
-                {active === id && <motion.span layoutId="nav-pill" transition={SPRING} className="bg-surface absolute inset-0 rounded-full" />}
+                {active === id && <motion.span layoutId="nav-pill" transition={SPRING} className="bg-foreground/[0.07] absolute inset-0 rounded-full" />}
                 {/* Above the pill of any link: while it slides it passes under the names, not over them. */}
                 <span className="relative z-10">{nav[id]}</span>
               </a>
@@ -36,7 +39,7 @@ export function Header({ nav, lang, other, onToggleLang }: Props) {
             onClick={onToggleLang}
             lang={other}
             aria-label={other === 'en' ? 'Read this page in English' : 'Leer esta página en español'}
-            className="press bg-surface ml-auto cursor-pointer rounded-full px-3 py-1.5 font-medium lg:ml-2"
+            className="press bg-foreground/[0.07] ml-auto cursor-pointer rounded-full px-3 py-1.5 font-medium lg:ml-2"
           >
             {lang.toUpperCase()} → {other.toUpperCase()}
           </button>

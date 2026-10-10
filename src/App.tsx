@@ -1,7 +1,6 @@
 import { useReducedMotion } from 'framer-motion'
 import { ReactLenis } from 'lenis/react'
 
-import { ScrollProgress } from '@/components/ui/skiper-ui/skiper89'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { AiSection } from '@/sections/AiSection'
@@ -11,7 +10,6 @@ import { FullStackSection } from '@/sections/FullStackSection'
 import { Header } from '@/sections/Header'
 import { Hero } from '@/sections/Hero'
 import { ProductSection } from '@/sections/ProductSection'
-import { StackMarquee } from '@/sections/StackMarquee'
 import { StackSection } from '@/sections/StackSection'
 import { WorkSection } from '@/sections/WorkSection'
 
@@ -24,11 +22,9 @@ export default function App() {
   const page = (
     <>
       <Header nav={t.nav} lang={lang} other={other} onToggleLang={toggle} />
-      {!reducedMotion && <ScrollProgress className="text-accent hidden md:block" />}
 
       <main id="top" className="relative overflow-x-clip">
         <Hero t={t} />
-        <StackMarquee stack={t.stack} />
         <AiSection t={t} />
         <WorkSection t={t} stacked={wide && !reducedMotion} />
         <FullStackSection t={t} />

@@ -1,16 +1,18 @@
 import { useInView, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 
-import { cn } from '@/lib/utils'
-
+import { Reveal } from '@/components/motion/Reveal'
+import { Points } from '@/components/Points'
 import type { Content } from '@/content'
+import { cn } from '@/lib/utils'
 
 const MARK = { ok: '✓', empty: '∅', error: '✕' } as const
 
 /**
  * A recorded secop-mcp session, replayed one step at a time when it scrolls into view. Nothing is called:
- * the script lives in src/content. Every step is in the page from the start and only fades in, so the
- * layout does not jump and a reader who asked for reduced motion sees it all at once.
+ * the script lives in src/content. Every step is in the page from the start, dimmed until its turn, so the
+ * window is never an empty box, the layout does not jump and a reader who asked for reduced motion sees it
+ * all at once. The notes stay beside the recording for as long as it is on screen.
  */
 export function Demo({ demo }: { demo: Content['demo'] }) {
   const box = useRef<HTMLDivElement>(null)
@@ -22,29 +24,20 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
 
   useEffect(() => {
     if (!inView || played >= total) return
-    const timer = setTimeout(() => setPlayed(played + 1), 900)
+    const timer = setTimeout(() => setPlayed(played + 1), 700)
     return () => clearTimeout(timer)
   }, [inView, played, total])
 
-  const reveal = (visible: boolean) => cn('transition-opacity duration-500', visible ? 'opacity-100' : 'opacity-0')
+  const reveal = (visible: boolean) => cn('transition-opacity duration-500', visible ? 'opacity-100' : 'opacity-20')
 
   return (
-    <div className="mt-24 grid gap-10 lg:grid-cols-12">
-      <div className="lg:col-span-4">
+    <Reveal className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12">
+      <div className="lg:sticky lg:top-24 lg:col-span-4 lg:self-start">
         <p className="eyebrow">{demo.label}</p>
-        <h3 className="display mt-3 text-[clamp(1.7rem,3.4vw,2.4rem)]">
-          {demo.title}
-        </h3>
+        <h3 className="display mt-3 text-[clamp(1.7rem,3.4vw,2.4rem)]">{demo.title}</h3>
         <p className="text-muted mt-4">{demo.note}</p>
         <h4 className="mt-8 mb-3 text-[0.95rem] font-semibold">{demo.findings.title}</h4>
-        <ul className="grid gap-3">
-          {demo.findings.items.map((item) => (
-            <li key={item} className="grid grid-cols-[auto_1fr] gap-3 text-[0.95rem]">
-              <span className="text-accent">→</span>
-              {item}
-            </li>
-          ))}
-        </ul>
+        <Points items={demo.findings.items} />
         <p className="mt-6 text-[0.95rem]">
           <a href={demo.more.href} className="text-accent hover:underline">
             {demo.more.text} ↗
@@ -54,7 +47,7 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
 
       <div
         ref={box}
-        className="dark-surface overflow-hidden rounded-[20px] font-mono text-[0.8rem] leading-relaxed tracking-normal shadow-[0_30px_70px_rgba(0,0,0,0.22)] lg:col-span-8"
+        className="dark-surface screen overflow-hidden font-mono text-[0.8rem] leading-relaxed tracking-normal lg:col-span-8"
       >
         <p className="text-muted flex items-center justify-between gap-4 border-b px-5 py-3 text-[0.75rem]">
           <span>{demo.stats}</span>
@@ -119,6 +112,6 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
           </div>
         </div>
       </div>
-    </div>
+    </Reveal>
   )
 }
