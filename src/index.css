@@ -103,15 +103,19 @@
   box-shadow: 0 30px 70px rgb(0 0 0 / 0.16);
 }
 
-/* A row that leaves the column and runs to both edges of the screen, with its first item still on the column. */
+/* A row that leaves the column and runs to both edges of the screen, with its first item still on the column.
+   Only where the column is the screen and its margins are just its padding. On a wide screen it stays in the
+   column: a row that reaches the right edge while everything else sits in a centred column looks lopsided. */
 @utility bleed-row {
-  /* Where the column's content starts, measured from the edge of the screen. Percentages will not do here:
-     in scroll-padding they refer to the row itself, not to the column around it. */
-  --gutter: calc(max(0px, (100vw - var(--column)) / 2) + var(--column-pad));
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  padding-inline: var(--gutter);
-  scroll-padding-inline: var(--gutter);
+  @media (width < 64rem) {
+    /* Where the column's content starts, measured from the edge of the screen. Percentages will not do here:
+       in scroll-padding they refer to the row itself, not to the column around it. */
+    --gutter: calc(max(0px, (100vw - var(--column)) / 2) + var(--column-pad));
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
 }
 
 /* Type changes shape with size: large text is set tight, small text is left alone. */
