@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import type { Content } from './content'
+import type { Content } from '@/content'
 
 const MARK = { ok: '✓', empty: '∅', error: '✕' } as const
 
 /**
  * A recorded secop-mcp session, replayed one step at a time when it scrolls into view. Nothing is called:
- * the script lives in content.ts. Every step is in the page from the start and only fades in, so the
+ * the script lives in src/content. Every step is in the page from the start and only fades in, so the
  * layout does not jump and a reader who asked for reduced motion sees it all at once.
  */
 export function Demo({ demo }: { demo: Content['demo'] }) {
