@@ -14,8 +14,10 @@ const CharacterV1 = ({ char, index, centerIndex, scrollYProgress }: CharacterPro
   const distanceFromCenter = index - centerIndex
 
   // Viewport units instead of the original pixels, so the spread never outruns a phone screen.
-  const x = useTransform(scrollYProgress, [0, 0.5], [`${distanceFromCenter * 3}vw`, '0vw'])
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [distanceFromCenter * 50, 0])
+  const x = useTransform(scrollYProgress, [0, 0.5], [`${distanceFromCenter * 2}vw`, '0vw'])
+  // Never past edge-on: a letter caught halfway is flattened, not upside down, so a title that is still
+  // arriving at the foot of the screen stays readable.
+  const rotateX = useTransform(scrollYProgress, [0, 0.5], [Math.max(-90, Math.min(90, distanceFromCenter * 50)), 0])
 
   return (
     <motion.span className="inline-block" style={{ x, rotateX }}>
@@ -54,7 +56,8 @@ export { CharacterV1, ScrollAssemble }
 
 /**
  * Skiper 31 ScrollAnimation_002 — React + framer motion
- * Adapted for this site: only the letter-by-letter variant is kept, wrapped as ScrollAssemble.
+ * Adapted for this site: only the letter-by-letter variant is kept, wrapped as ScrollAssemble, and the
+ * letters stop turning at edge-on.
  *
  * License & Usage:
  * - Free to use and modify in both personal and commercial projects.
