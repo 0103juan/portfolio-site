@@ -4,14 +4,14 @@ import type { Content } from './types'
 export const es: Content = {
   nav: { ai: 'IA aplicada', work: 'Experiencia', fullstack: 'Full stack', product: 'Producto', stack: 'Stack', contact: 'Contacto' },
   role: 'AI Engineer · Backend · Full Stack',
+  headline: { lead: 'Modelos de lenguaje en sistemas que', key: 'se pueden verificar.' },
   pitch:
-    'Llevo modelos de lenguaje a sistemas que se pueden verificar, de la base de datos a la pantalla. Como Backend ' +
-    'Lead, desde 2022 construyo sistemas que convierten documentos en datos para entidades financieras y del sector ' +
-    'público en Colombia.',
+    'Soy Backend Lead. Desde 2022 construyo sistemas que convierten documentos en datos para entidades financieras ' +
+    'y del sector público en Colombia, de la base de datos a la pantalla.',
   facts: [
-    { value: '7', label: 'proyectos de IA propios, con pruebas y resultados medidos' },
-    { value: '6 años', label: 'desarrollando software, cuatro liderando backend para finanzas y sector público' },
-    { value: '1 producto', label: 'llevado a cuatro stacks: Node.js, Angular, Flutter y React' },
+    { value: 7, unit: '', label: 'proyectos de IA propios, con pruebas y resultados medidos' },
+    { value: 6, unit: 'años', label: 'desarrollando software, cuatro liderando backend para finanzas y sector público' },
+    { value: 1, unit: 'producto', label: 'llevado a cuatro stacks: Node.js, Angular, Flutter y React' },
   ],
   work: {
     title: 'Trabajo con clientes',
@@ -239,7 +239,7 @@ export const es: Content = {
     },
   },
   ai: {
-    title: 'IA aplicada',
+    title: 'Cada número salió de una ejecución real',
     intro:
       'Siete proyectos en Python contra la API de Claude. Cinco no usan frameworks de agentes, para que el mecanismo ' +
       'se vea en el código; el agente de contratos usa LangGraph. Cada README publica solo números que salieron de ' +

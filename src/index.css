@@ -1,18 +1,18 @@
 @import "tailwindcss";
-@import "@fontsource-variable/bricolage-grotesque/wdth.css";
-@import "@fontsource-variable/jetbrains-mono/wght.css";
 
-/* One dark theme, on purpose: near-black, bone white, and a single loud accent. */
+/* One light theme, after Apple's product pages: white, a pale grey for surfaces, near-black type and one blue
+   accent. The system font on purpose: it already ships optical sizes and tracking tuned for each platform. */
 @theme {
-  --font-sans: "Bricolage Grotesque Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
-  --color-background: #0a0a0a;
-  --color-foreground: #efefe9;
-  --color-border: #2b2b28;
-  --color-coal: #121211;
-  --color-ash: #9b9b93;
-  --color-volt: #c8ff3e;
+  --color-background: #ffffff;
+  --color-foreground: #1d1d1f;
+  --color-surface: #f5f5f7;
+  --color-border: #d2d2d7;
+  --color-muted: #6e6e73;
+  --color-accent: #0066cc;
+  --color-on-accent: #ffffff;
 
   --animate-marquee: marquee 45s linear infinite;
 
@@ -29,47 +29,112 @@
   }
 
   html {
+    --column: 72.5rem;
+    --column-pad: clamp(1.25rem, 4vw, 2.5rem);
     scroll-padding-top: 5rem;
     background: var(--color-background);
     color: var(--color-foreground);
   }
 
   body {
+    background: var(--color-background);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.47;
+    letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
   ::selection {
-    background: var(--color-volt);
-    color: var(--color-background);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-volt);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
 }
 
-/* Condensed, heavy, uppercase: the voice of every headline. */
-@utility display {
-  font-stretch: 75%;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.86;
+/* A dark surface inside the light page (the recorded terminal, the open layer of the stack): the same
+   tokens, redefined for everything inside it. */
+@utility dark-surface {
+  --color-background: #1d1d1f;
+  --color-foreground: #f5f5f7;
+  --color-surface: #2c2c2e;
+  --color-border: #424245;
+  --color-muted: #a1a1a6;
+  --color-accent: #2997ff;
+  background: var(--color-background);
+  color: var(--color-foreground);
 }
 
-/* Small technical labels. */
-@utility label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+/* The column every section shares. */
+@utility wrap {
+  width: 100%;
+  max-width: var(--column);
+  margin-inline: auto;
+  padding-inline: var(--column-pad);
+}
+
+/* A row that leaves the column and runs to both edges of the screen, with its first item still on the column. */
+@utility bleed-row {
+  /* Where the column's content starts, measured from the edge of the screen. Percentages will not do here:
+     in scroll-padding they refer to the row itself, not to the column around it. */
+  --gutter: calc(max(0px, (100vw - var(--column)) / 2) + var(--column-pad));
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+
+/* Type changes shape with size: large text is set tight, small text is left alone. */
+@utility display {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+@utility sub {
+  font-size: clamp(1.1rem, 2.1vw, 1.35rem);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--color-muted);
+  max-width: 36em;
+  text-wrap: pretty;
+}
+
+@utility eyebrow {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--color-accent);
+}
+
+/* Feedback on the press itself, not on release. */
+@utility press {
+  transition: transform 100ms ease-out;
+
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
+  }
+}
+
+/* People who ask for less transparency get a solid bar instead of the blurred edge. */
+@media (prefers-reduced-transparency: reduce) {
+  .header-edge {
+    background: var(--color-background) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    mask-image: none !important;
+    height: 4rem !important;
   }
 }

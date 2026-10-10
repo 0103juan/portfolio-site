@@ -4,19 +4,21 @@ import { useState, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * A row of narrow panels; the one under the pointer (or the one tapped or focused) grows and
- * shows its full content, the others collapse to a spine.
+ * A row (or, with `flex-col`, a column) of narrow panels; the one under the pointer (or the one tapped or
+ * focused) grows and shows its full content, the others collapse to a spine.
  */
 const HoverExpand_001 = <T,>({
   items,
   spine,
   body,
   className,
+  grow = 9,
 }: {
   items: T[]
   spine: (item: T, index: number, active: boolean) => ReactNode
   body: (item: T, index: number) => ReactNode
   className?: string
+  grow?: number // how many times larger than a spine the open panel is
 }) => {
   const [activeItem, setActiveItem] = useState(0)
 
@@ -28,11 +30,11 @@ const HoverExpand_001 = <T,>({
           <motion.div
             key={index}
             tabIndex={0}
-            className="relative min-w-0 cursor-pointer overflow-hidden outline-none"
+            className="relative min-h-0 min-w-0 cursor-pointer overflow-hidden outline-none"
             style={{ flexBasis: 0 }}
             initial={false}
-            animate={{ flexGrow: active ? 9 : 1 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            animate={{ flexGrow: active ? grow : 1 }}
+            transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
             onClick={() => setActiveItem(index)}
             onFocus={() => setActiveItem(index)}
             onHoverStart={() => setActiveItem(index)}
@@ -61,7 +63,8 @@ export { HoverExpand_001 }
 
 /**
  * Skiper 52 HoverExpand_001 — React + Framer Motion
- * Adapted for this site: panels hold any content instead of images, and respond to focus.
+ * Adapted for this site: panels hold any content instead of images, respond to focus, can be stacked as a
+ * column, and open on a spring.
  *
  * License & Usage:
  * - Free to use and modify in both personal and commercial projects.

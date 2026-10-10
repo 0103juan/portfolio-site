@@ -1,29 +1,30 @@
-import { SectionHead } from '@/components/SectionHead'
+import { Reveal } from '@/components/motion/Reveal'
 import { TextRoll } from '@/components/ui/skiper-ui/skiper58'
 import { EMAIL, GITHUB, LINKEDIN, type Content } from '@/content'
 
 export function ContactSection({ t }: { t: Pick<Content, 'nav' | 'contact' | 'where'> }) {
   return (
-    <section id="contact" className="border-t px-5 pt-24 pb-16 md:px-10 lg:pt-32">
-      <SectionHead id="contact" label={t.nav.contact}>
-        <p className="max-w-[40ch] text-2xl leading-snug lg:text-3xl">{t.contact.text}</p>
-      </SectionHead>
-      <div className="display grid gap-4 text-[clamp(3rem,13vw,13rem)]">
-        <a href={`mailto:${EMAIL}`} className="hover:text-volt w-fit transition-colors" aria-label={`${t.contact.title}: ${EMAIL}`}>
-          <TextRoll className="leading-[0.95]">{t.contact.title}</TextRoll>
-        </a>
-      </div>
-      <div className="label mt-10 flex flex-wrap gap-x-10 gap-y-3">
-        <a href={`mailto:${EMAIL}`} className="underline decoration-2 underline-offset-4">
-          {EMAIL}
-        </a>
-        <a href={GITHUB} className="underline decoration-2 underline-offset-4">
-          github.com/0103juan ↗
-        </a>
-        <a href={LINKEDIN} className="underline decoration-2 underline-offset-4">
-          LinkedIn ↗
-        </a>
-        <span className="text-ash">{t.where}</span>
+    <section id="contact" className="border-t">
+      <div className="wrap pt-24 pb-20 lg:pt-32">
+        <Reveal className="grid gap-4">
+          <p className="eyebrow">{t.nav.contact}</p>
+          <a href={`mailto:${EMAIL}`} className="display hover:text-accent w-fit text-[clamp(3.4rem,13vw,10rem)] transition-colors" aria-label={`${t.contact.title}: ${EMAIL}`}>
+            <TextRoll className="pr-[0.06em] leading-[1.15]">{t.contact.title}</TextRoll>
+          </a>
+          <p className="sub">{t.contact.text}</p>
+        </Reveal>
+        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-[0.95rem]">
+          <a href={`mailto:${EMAIL}`} className="press bg-accent text-on-accent rounded-full px-6 py-3 text-[1.0625rem] font-medium">
+            {EMAIL}
+          </a>
+          <a href={GITHUB} className="text-accent hover:underline">
+            github.com/0103juan ↗
+          </a>
+          <a href={LINKEDIN} className="text-accent hover:underline">
+            LinkedIn ↗
+          </a>
+          <span className="text-muted">{t.where}</span>
+        </div>
       </div>
     </section>
   )

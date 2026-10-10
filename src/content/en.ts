@@ -4,13 +4,14 @@ import type { Content } from './types'
 export const en: Content = {
   nav: { ai: 'Applied AI', work: 'Experience', fullstack: 'Full stack', product: 'Product', stack: 'Stack', contact: 'Contact' },
   role: 'AI Engineer · Backend · Full Stack',
+  headline: { lead: 'Language models in systems', key: 'you can verify.' },
   pitch:
-    'I put language models into systems you can verify, from the database to the screen. As a Backend Lead, since ' +
-    '2022 I have built systems that turn documents into data for financial and public-sector organisations in Colombia.',
+    'I am a Backend Lead. Since 2022 I have built systems that turn documents into data for financial and ' +
+    'public-sector organisations in Colombia, from the database to the screen.',
   facts: [
-    { value: '7', label: 'AI projects of my own, with tests and measured results' },
-    { value: '6 years', label: 'building software, four of them leading backend for finance and the public sector' },
-    { value: '1 product', label: 'taken to four stacks: Node.js, Angular, Flutter and React' },
+    { value: 7, unit: '', label: 'AI projects of my own, with tests and measured results' },
+    { value: 6, unit: 'years', label: 'building software, four of them leading backend for finance and the public sector' },
+    { value: 1, unit: 'product', label: 'taken to four stacks: Node.js, Angular, Flutter and React' },
   ],
   work: {
     title: 'Client work',
@@ -237,7 +238,7 @@ export const en: Content = {
     },
   },
   ai: {
-    title: 'Applied AI',
+    title: 'Every number came from a real run',
     intro:
       'Seven Python projects against the Claude API. Five use no agent framework, so the mechanism is visible in ' +
       'the code; the contracts agent uses LangGraph. Each README publishes only numbers that came from a real run, ' +

@@ -10,8 +10,8 @@ import { Footer } from '@/sections/Footer'
 import { FullStackSection } from '@/sections/FullStackSection'
 import { Header } from '@/sections/Header'
 import { Hero } from '@/sections/Hero'
-import { Highlights } from '@/sections/Highlights'
 import { ProductSection } from '@/sections/ProductSection'
+import { StackMarquee } from '@/sections/StackMarquee'
 import { StackSection } from '@/sections/StackSection'
 import { WorkSection } from '@/sections/WorkSection'
 
@@ -24,12 +24,12 @@ export default function App() {
   const page = (
     <>
       <Header nav={t.nav} lang={lang} other={other} onToggleLang={toggle} />
-      {!reducedMotion && <ScrollProgress className="text-volt hidden md:block" />}
+      {!reducedMotion && <ScrollProgress className="text-accent hidden md:block" />}
 
       <main id="top" className="relative overflow-x-clip">
         <Hero t={t} />
-        <Highlights t={t} />
-        <AiSection t={t} wide={wide} />
+        <StackMarquee stack={t.stack} />
+        <AiSection t={t} />
         <WorkSection t={t} stacked={wide && !reducedMotion} />
         <FullStackSection t={t} />
         <ProductSection t={t} />
@@ -42,5 +42,5 @@ export default function App() {
   )
 
   // Smooth scrolling is motion too: people who ask for less of it get the browser's own scrolling.
-  return reducedMotion ? page : <ReactLenis root>{page}</ReactLenis>
+  return reducedMotion ? page : <ReactLenis root options={{ anchors: true }}>{page}</ReactLenis>
 }

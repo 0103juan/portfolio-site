@@ -14,8 +14,9 @@ export type Layer = { name: string; tech: string[]; proof: string; project: stri
 export type Content = {
   nav: { ai: string; work: string; fullstack: string; product: string; stack: string; contact: string }
   role: string
+  headline: { lead: string; key: string } // the sentence of the hero; `key` is the part set in the accent colour
   pitch: string
-  facts: { value: string; label: string }[]
+  facts: { value: number; unit: string; label: string }[] // numbers, so the page can count up to them
   work: { title: string; intro: string; items: Work[] }
   fullstack: { title: string; intro: string; layers: Layer[] }
   product: {

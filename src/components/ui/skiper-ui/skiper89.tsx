@@ -31,7 +31,7 @@ const ScrollProgress = ({ className }: { className?: string }) => {
         className="text-foreground/60 absolute top-1 flex h-8 -translate-y-full items-center justify-center px-3 text-xs font-medium tabular-nums opacity-0 group-hover:opacity-100"
         suffix="%"
       />
-      <div className="bg-background/40 flex size-12 items-center justify-center border backdrop-blur">
+      <div className="bg-background/60 flex size-12 items-center justify-center rounded-full border shadow-[0_6px_20px_rgba(0,0,0,0.1)] backdrop-blur-xl">
         <svg className="size-10" viewBox="0 0 48 48" role="presentation">
           <circle cx="24" cy="24" r={svgRadius} stroke="currentColor" strokeWidth="3" className="opacity-20" fill="none" />
           <motion.circle
