@@ -20,7 +20,7 @@ export function Chips({ items, className, mark = false, large = false }: Props) 
           key={item}
           className={cn(
             'rounded-full border leading-none font-medium tracking-normal',
-            large ? 'px-3.5 py-2 text-[0.9rem]' : 'text-muted px-2.5 py-1 text-[0.75rem]',
+            large ? 'px-3.5 py-2 text-[0.9rem]' : 'text-muted px-2.5 py-1 text-[0.8rem]',
             mark && AI_TECH.test(item) && 'border-accent/40 text-accent',
           )}
         >
