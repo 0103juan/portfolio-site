@@ -5,7 +5,7 @@ import { SPRING } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 
 /**
- * A pile of panels; the one under the pointer (or the one tapped or focused) opens to the height of its
+ * A pile of panels; the one clicked, tapped or focused opens to the height of its
  * content, the others stay closed as a spine.
  */
 const HoverExpand_001 = <T,>({
@@ -37,7 +37,6 @@ const HoverExpand_001 = <T,>({
             transition={SPRING}
             onClick={() => setActiveItem(index)}
             onFocus={() => setActiveItem(index)}
-            onHoverStart={() => setActiveItem(index)}
           >
             <div className={cn('absolute inset-x-0 top-0 transition-opacity', active && 'opacity-0')} style={{ height: spineHeight }}>
               {spine(item, index)}
@@ -66,7 +65,7 @@ export { HoverExpand_001 }
 /**
  * Skiper 52 HoverExpand_001 — React + Framer Motion
  * Adapted for this site: the panels are piled as a column and hold any content instead of images, the open
- * one takes the height of what is inside it, and they respond to focus as well as to the pointer.
+ * one takes the height of what is inside it, and they open on click or focus, not on hover: a panel that opens under the pointer moves the ones below it, and the last panels become hard to reach.
  *
  * License & Usage:
  * - Free to use and modify in both personal and commercial projects.
