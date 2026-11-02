@@ -19,16 +19,27 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
   const inView = useInView(box, { once: true, amount: 0.15 })
   const reducedMotion = useReducedMotion()
   const total = demo.steps.length + 1 // the tool calls, then the answer
+  const [typed, setTyped] = useState(0) // letters of the question typed so far
   const [played, setPlayed] = useState(0)
+  const asked = reducedMotion || typed >= demo.question.length
   const shown = reducedMotion ? total : played
+  const text = reducedMotion ? demo.question : demo.question.slice(0, typed)
+
+  // The question is typed first, then the tool calls follow one by one.
+  useEffect(() => {
+    if (!inView || asked) return
+    const timer = setTimeout(() => setTyped(typed + 1), 28)
+    return () => clearTimeout(timer)
+  }, [inView, asked, typed])
 
   useEffect(() => {
-    if (!inView || played >= total) return
-    const timer = setTimeout(() => setPlayed(played + 1), 700)
+    if (!inView || !asked || played >= total) return
+    const timer = setTimeout(() => setPlayed(played + 1), played === 0 ? 450 : 700)
     return () => clearTimeout(timer)
-  }, [inView, played, total])
+  }, [inView, asked, played, total])
 
-  const reveal = (visible: boolean) => cn('transition-opacity duration-500', visible ? 'opacity-100' : 'opacity-20')
+  const reveal = (visible: boolean) =>
+    cn('transition-[opacity,translate] duration-500', visible ? 'opacity-100' : 'translate-y-1 opacity-20')
 
   return (
     <Reveal className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12">
@@ -54,8 +65,11 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
           {!reducedMotion && (
             <button
               type="button"
-              onClick={() => setPlayed(0)}
-              disabled={played < total}
+              onClick={() => {
+                setTyped(0)
+                setPlayed(0)
+              }}
+              disabled={!asked || played < total}
               className="hover:text-accent cursor-pointer whitespace-nowrap disabled:cursor-default disabled:opacity-40"
             >
               ↻ {demo.replay}
@@ -64,7 +78,8 @@ export function Demo({ demo }: { demo: Content['demo'] }) {
         </p>
         <div className="grid gap-4 p-5 lg:p-7">
           <p className="text-[0.95rem]">
-            <span className="text-accent">&gt;</span> {demo.question}
+            <span className="text-accent">&gt;</span> {text}
+            {!asked && <span aria-hidden className="bg-accent ml-0.5 inline-block h-[1em] w-[0.5ch] translate-y-[0.15em] animate-pulse" />}
           </p>
           <ol className="grid gap-3">
             {demo.steps.map((step, i) => (
