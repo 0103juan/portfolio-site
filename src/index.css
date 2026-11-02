@@ -135,11 +135,11 @@
 }
 
 @utility sub {
-  font-size: clamp(1.1rem, 2.1vw, 1.35rem);
-  line-height: 1.4;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
   color: var(--color-muted);
-  max-width: 36em;
+  max-width: 40em;
   text-wrap: pretty;
 }
 
