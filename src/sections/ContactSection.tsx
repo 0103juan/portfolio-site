@@ -8,7 +8,7 @@ export function ContactSection({ t }: { t: Pick<Content, 'nav' | 'contact' | 'wh
       id="contact"
       label={t.nav.contact}
       title={
-        <a href={`mailto:${EMAIL}`} className="display hover:text-accent w-fit text-[clamp(3.4rem,13vw,10rem)] transition-colors" aria-label={`${t.contact.title}: ${EMAIL}`}>
+        <a href={`mailto:${EMAIL}`} className="display hover:text-accent -ml-[0.04em] w-fit text-[clamp(3rem,8vw,5.5rem)] transition-colors" aria-label={`${t.contact.title}: ${EMAIL}`}>
           {/* The roll clips to its box, and tight tracking pulls the last letter's edge past it: leave it room. */}
           <TextRoll className="pr-[0.06em] leading-[1.15]">{t.contact.title}</TextRoll>
         </a>
