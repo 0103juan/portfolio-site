@@ -28,14 +28,14 @@ export function ProductSection({ t }: { t: Pick<Content, 'nav' | 'product' | 'pe
 
   return (
     <Section id="product" label={t.nav.product} title={t.product.title} intro={t.product.intro}>
-      <Zoom className="grid items-end gap-6 lg:grid-cols-12">
-        <figure className="lg:col-span-9">
-          <img src={shot('dashboard')} width={1920} height={1350} alt={captions.dashboard} className={SCREEN} />
-          <figcaption className="text-muted mt-4 text-[0.9rem]">{captions.dashboard}</figcaption>
+      <Zoom className="grid items-start gap-6 lg:grid-cols-2">
+        <figure>
+          <img src={shot('alertas')} width={1440} height={1000} alt={captions.alertas} className={SCREEN} />
+          <figcaption className="text-muted mt-4 text-[0.9rem]">{captions.alertas}</figcaption>
         </figure>
-        <figure className="max-w-56 lg:col-span-3 lg:max-w-none">
-          <img src={shot('mobile')} width={780} height={1688} alt={captions.mobile} loading="lazy" className={SCREEN} />
-          <figcaption className="text-muted mt-4 text-[0.9rem]">{captions.mobile}</figcaption>
+        <figure>
+          <img src={shot('analyst')} width={1440} height={1000} alt={captions.analyst} loading="lazy" className={SCREEN} />
+          <figcaption className="text-muted mt-4 text-[0.9rem]">{captions.analyst}</figcaption>
         </figure>
       </Zoom>
 

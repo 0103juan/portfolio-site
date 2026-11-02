@@ -262,11 +262,14 @@ export const en: Content = {
       },
     ],
     captions: {
-      dashboard: "The Angular dashboard with a city government's real 2024 data: every figure comes with its reading.",
+      alertas:
+        'secop-alertas, live: groups of contracts from one entity and one supplier that, signed within a few days, ' +
+        'reach the threshold. A pattern to review, not proof.',
+      analyst:
+        'secop-analyst, live: the agent answers with read-only SQL over the Cauca contracts and shows the query it ran.',
       warning:
         'A finding in the data: in 2019 one contract typed with an impossible value explains 100% of the total. ' +
         'The dashboard says so, shows the total without that contract and refuses to compare that year with another.',
-      mobile: 'The Flutter app.',
     },
   },
   ai: {

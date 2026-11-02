@@ -26,7 +26,7 @@ export type Content = {
     title: string
     intro: string
     parts: Project[]
-    captions: { dashboard: string; warning: string; mobile: string }
+    captions: { alertas: string; analyst: string; warning: string }
   }
   ai: { title: string; intro: string; items: Project[] }
   // The script of the recorded demo: one real secop-mcp session. Change it only from a real run's output.

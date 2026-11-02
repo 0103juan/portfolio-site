@@ -264,11 +264,14 @@ export const es: Content = {
       },
     ],
     captions: {
-      dashboard: 'El panel en Angular con los datos reales de 2024 de una alcaldía: cada cifra viene con su lectura.',
+      alertas:
+        'secop-alertas en vivo: grupos de contratos de una misma entidad y proveedor que, firmados en pocos días, ' +
+        'alcanzan el umbral. Es un patrón para revisar, no una prueba.',
+      analyst:
+        'secop-analyst en vivo: el agente responde con SQL de solo lectura sobre los contratos del Cauca y muestra la consulta que ejecutó.',
       warning:
         'Un hallazgo de los datos: en 2019 un contrato digitado con un valor imposible explica el 100 % del total. ' +
         'El panel lo dice, muestra el total sin ese contrato y se niega a comparar ese año con otro.',
-      mobile: 'La app en Flutter.',
     },
   },
   ai: {
