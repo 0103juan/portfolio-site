@@ -206,7 +206,7 @@ export const en: Content = {
       {
         name: 'Infrastructure',
         tech: ['Docker', 'Kubernetes', 'Terraform', 'GCP', 'AWS', 'GitHub Actions'],
-        proof: 'The same platform on Google Cloud and AWS: fifteen Terraform modules with 64 tests against mock providers. It has not been applied to a real account.',
+        proof: 'The same platform on Google Cloud and AWS: fifteen Terraform modules with 64 tests against mock providers. The Google Cloud half was applied once to a throwaway project, which was then destroyed; the AWS half has not been applied.',
         project: 'terraform-cloud-platform',
         repo: `${GITHUB}/terraform-cloud-platform`,
       },
@@ -284,9 +284,10 @@ export const en: Content = {
           'An agent that answers questions about 35,718 public contracts: hybrid search in PostgreSQL with pgvector, ' +
           'SQL written by the model and contained by the database, a pause for human approval when a query is ' +
           'expensive, and two-tier memory between Redis and Postgres.',
-        proof: '28 tests against real Postgres and Redis. On one real question, 38 figures checked against the database and all correct, in 33 s and about 0.06 USD. It runs on Docker Compose and on local Kubernetes, with OpenTelemetry traces.',
+        proof: '32 tests against real Postgres and Redis. On one real question, 38 figures checked against the database and all correct, in 33 s and about 0.06 USD. It runs on Docker Compose and on local Kubernetes, with OpenTelemetry traces. The live demo runs on Cloud Run with Gemini, limited to 10 questions per visitor.',
         stack: ['Python', 'LangGraph', 'PostgreSQL', 'pgvector', 'Redis', 'FastAPI', 'OpenTelemetry', 'Kubernetes'],
         repo: `${GITHUB}/secop-analyst`,
+        demo: 'https://secop-analyst-nhhwkvo3uq-uc.a.run.app',
       },
       {
         name: 'consultor-tributario',
@@ -424,6 +425,18 @@ export const en: Content = {
     title: 'Other projects of my own',
     items: [
       {
+        name: 'secop-alertas',
+        kind: 'Django · Angular',
+        summary:
+          'Alerts and readings over public contracts: every new SECOP II contract is matched against each user’s rules ' +
+          'and the matches go out by email or by a signed webhook. It detects possible contract splitting with an ' +
+          'O(n log n) algorithm, and value outliers with robust statistics.',
+        proof: '48 backend tests, 19 unit tests and 17 end-to-end tests. No event is lost between the database and Pub/Sub (transactional outbox). The slowest query went from 200 ms to 3.8 ms with indexes measured with EXPLAIN ANALYZE. It runs on Cloud Run with Terraform.',
+        stack: ['Django 5', 'DRF', 'PostgreSQL', 'Redis', 'Pub/Sub', 'Cloud Run', 'Terraform', 'Angular 22'],
+        repo: `${GITHUB}/secop-alertas`,
+        demo: 'https://secop-alertas-nhhwkvo3uq-uc.a.run.app',
+      },
+      {
         name: 'PC Remote',
         kind: 'Python · Kotlin',
         summary:
@@ -443,13 +456,14 @@ export const en: Content = {
       },
       {
         name: 'CrediYa',
-        kind: 'Microservices · SQS · Lambda',
+        kind: 'Microservices · Kafka · SQS · Lambda',
         summary:
           'Two reactive microservices with a hexagonal architecture: authentication with JWT, and loan requests. ' +
-          'When an adviser approves or rejects a request, the service puts the decision on an SQS queue and a ' +
-          'Lambda function emails the client.',
-        proof: '119 tests across the two services, with architecture rules and mutation testing. CI starts the queue and the Lambda on LocalStack and checks that a message ends up as an email. It is not deployed to AWS.',
-        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'SQS', 'Lambda', 'LocalStack', 'ArchUnit', 'PIT'],
+          'When an adviser approves or rejects a request, the service publishes the decision to a Kafka topic; one ' +
+          'reader passes it to an SQS queue and a Lambda function emails the client, and a second reader keeps a ' +
+          'report in DynamoDB. Two advisers cannot decide the same request at once.',
+        proof: '145 tests across the two services, with architecture rules, mutation testing and tests against a real PostgreSQL through Testcontainers. CI starts the queue and the Lambda on LocalStack and checks that a message ends up as an email. It is not deployed to AWS.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'Kafka', 'SQS', 'Lambda', 'DynamoDB', 'LocalStack', 'Testcontainers', 'Prometheus', 'Grafana'],
         repo: `${GITHUB}/crediya-microservice-loan`,
       },
     ],
@@ -472,7 +486,7 @@ export const en: Content = {
       },
       {
         name: 'I also build with',
-        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
+        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Django', 'Kafka', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
       },
     ],
   },

@@ -208,7 +208,7 @@ export const es: Content = {
       {
         name: 'Infraestructura',
         tech: ['Docker', 'Kubernetes', 'Terraform', 'GCP', 'AWS', 'GitHub Actions'],
-        proof: 'La misma plataforma en Google Cloud y en AWS: quince módulos de Terraform con 64 pruebas contra proveedores simulados. No se ha aplicado en una cuenta real.',
+        proof: 'La misma plataforma en Google Cloud y en AWS: quince módulos de Terraform con 64 pruebas contra proveedores simulados. La parte de Google Cloud se aplicó una vez en un proyecto de prueba, que luego se destruyó; la de AWS no se ha aplicado.',
         project: 'terraform-cloud-platform',
         repo: `${GITHUB}/terraform-cloud-platform`,
       },
@@ -286,9 +286,10 @@ export const es: Content = {
           'Un agente que responde preguntas sobre 35.718 contratos públicos: búsqueda híbrida en PostgreSQL con ' +
           'pgvector, SQL escrito por el modelo y contenido por la base de datos, pausa para aprobación humana cuando ' +
           'una consulta es costosa, y memoria en dos niveles entre Redis y Postgres.',
-        proof: '28 pruebas contra Postgres y Redis reales. En una pregunta real, 38 cifras comprobadas contra la base y todas correctas, en 33 s y unos 0,06 USD. Corre en Docker Compose y en Kubernetes local, con trazas de OpenTelemetry.',
+        proof: '32 pruebas contra Postgres y Redis reales. En una pregunta real, 38 cifras comprobadas contra la base y todas correctas, en 33 s y unos 0,06 USD. Corre en Docker Compose y en Kubernetes local, con trazas de OpenTelemetry. La demo en vivo corre en Cloud Run con Gemini, limitada a 10 preguntas por visitante.',
         stack: ['Python', 'LangGraph', 'PostgreSQL', 'pgvector', 'Redis', 'FastAPI', 'OpenTelemetry', 'Kubernetes'],
         repo: `${GITHUB}/secop-analyst`,
+        demo: 'https://secop-analyst-nhhwkvo3uq-uc.a.run.app',
       },
       {
         name: 'consultor-tributario',
@@ -426,6 +427,18 @@ export const es: Content = {
     title: 'Otros proyectos propios',
     items: [
       {
+        name: 'secop-alertas',
+        kind: 'Django · Angular',
+        summary:
+          'Alertas y lecturas sobre los contratos públicos: cada contrato nuevo de SECOP II se compara con las reglas ' +
+          'de cada usuario y las coincidencias salen por correo o por webhook firmado. Detecta posible fraccionamiento ' +
+          'de contratos con un algoritmo O(n log n) y valores atípicos con estadística robusta.',
+        proof: '48 pruebas de backend, 19 unitarias y 17 de extremo a extremo. Ningún evento se pierde entre la base y Pub/Sub (bandeja de salida transaccional). La consulta más lenta pasó de 200 ms a 3,8 ms con índices medidos con EXPLAIN ANALYZE. Corre en Cloud Run con Terraform.',
+        stack: ['Django 5', 'DRF', 'PostgreSQL', 'Redis', 'Pub/Sub', 'Cloud Run', 'Terraform', 'Angular 22'],
+        repo: `${GITHUB}/secop-alertas`,
+        demo: 'https://secop-alertas-nhhwkvo3uq-uc.a.run.app',
+      },
+      {
         name: 'PC Remote',
         kind: 'Python · Kotlin',
         summary:
@@ -445,13 +458,14 @@ export const es: Content = {
       },
       {
         name: 'CrediYa',
-        kind: 'Microservicios · SQS · Lambda',
+        kind: 'Microservicios · Kafka · SQS · Lambda',
         summary:
           'Dos microservicios reactivos con arquitectura hexagonal: autenticación con JWT y solicitudes de crédito. ' +
-          'Cuando un asesor aprueba o rechaza una solicitud, el servicio publica la decisión en una cola SQS y una ' +
-          'función Lambda le avisa al cliente por correo.',
-        proof: '119 pruebas en los dos servicios, con reglas de arquitectura y pruebas de mutación. CI levanta la cola y la Lambda en LocalStack y comprueba que un mensaje termina en correo. No está desplegado en AWS.',
-        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'SQS', 'Lambda', 'LocalStack', 'ArchUnit', 'PIT'],
+          'Cuando un asesor aprueba o rechaza una solicitud, el servicio publica la decisión en un tema de Kafka; un ' +
+          'lector la pasa a una cola SQS y una función Lambda le avisa al cliente por correo, y un segundo lector ' +
+          'mantiene un reporte en DynamoDB. Dos asesores no pueden decidir la misma solicitud a la vez.',
+        proof: '145 pruebas en los dos servicios, con reglas de arquitectura, pruebas de mutación y pruebas contra PostgreSQL real con Testcontainers. CI levanta la cola y la Lambda en LocalStack y comprueba que un mensaje termina en correo. No está desplegado en AWS.',
+        stack: ['Java 21', 'Spring WebFlux', 'R2DBC', 'Kafka', 'SQS', 'Lambda', 'DynamoDB', 'LocalStack', 'Testcontainers', 'Prometheus', 'Grafana'],
         repo: `${GITHUB}/crediya-microservice-loan`,
       },
     ],
@@ -474,7 +488,7 @@ export const es: Content = {
       },
       {
         name: 'También construyo con',
-        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
+        items: ['TypeScript', 'Node.js', 'React', 'Angular', 'Flutter', 'Kotlin', 'Django', 'Kafka', 'Redis', 'Kubernetes', 'AWS Lambda', 'Terraform', 'ANTLR4'],
       },
     ],
   },
