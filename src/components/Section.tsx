@@ -27,11 +27,16 @@ export function Section({ id, label, title, intro, tinted = false, children }: P
   return (
     <section id={id} className={cn(tinted && 'tinted')}>
       <div className="wrap section">
-        <Reveal className="mb-10 grid gap-4 lg:mb-14">
-          <p className="eyebrow">{label}</p>
+        {/* The title has its own motion, so only the lines around it rise: two effects on one title read as noise. */}
+        <div className="mb-10 grid gap-4 lg:mb-14">
+          <Reveal>
+            <p className="eyebrow">{label}</p>
+          </Reveal>
           {assembled ? <ScrollAssemble text={title} className={TITLE} /> : typeof title === 'string' ? <h2 className={TITLE}>{title}</h2> : title}
-          <p className="sub">{intro}</p>
-        </Reveal>
+          <Reveal>
+            <p className="sub">{intro}</p>
+          </Reveal>
+        </div>
         {children}
       </div>
     </section>
